@@ -44,9 +44,7 @@ public class StorymapDao {
 			pstmt.setString(4, smDto.getSub_city_code());
 			pstmt.setString(5, smDto.getSm_title());
 			pstmt.setString(6, smDto.getSm_img_path());
-			System.out.println(smDto);
 			pstmt.executeUpdate();
-			System.out.println(smDto);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

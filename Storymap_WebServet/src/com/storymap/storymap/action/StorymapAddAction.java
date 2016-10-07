@@ -1,4 +1,4 @@
-package com.storymap.story_map.action;
+package com.storymap.storymap.action;
 
 import java.io.IOException;
 import java.util.List;

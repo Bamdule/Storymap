@@ -1,4 +1,4 @@
-package com.storymap.story_map.controller;
+package com.storymap.storymap.controller;
 
 import java.io.IOException;
 

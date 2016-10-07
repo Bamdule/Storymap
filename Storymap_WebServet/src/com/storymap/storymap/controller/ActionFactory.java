@@ -1,11 +1,11 @@
-package com.storymap.story_map.controller;
+package com.storymap.storymap.controller;
 
 import com.storymap.common.action.Action;
 import com.storymap.member.action.MemberAddAction;
 import com.storymap.member.action.MemberImageAddAction;
 import com.storymap.member.action.MyPageInfoAction;
 import com.storymap.member.action.MyStorymapListAction;
-import com.storymap.story_map.action.StorymapAddAction;
+import com.storymap.storymap.action.StorymapAddAction;
 
 public class ActionFactory {
 	private static ActionFactory instance =null;
