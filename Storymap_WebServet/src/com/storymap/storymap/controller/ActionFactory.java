@@ -6,6 +6,7 @@ import com.storymap.member.action.MemberImageAddAction;
 import com.storymap.member.action.MyPageInfoAction;
 import com.storymap.member.action.MyStorymapListAction;
 import com.storymap.storymap.action.StorymapAddAction;
+import com.storymap.storymap.action.StorymapDetailAction;
 
 public class ActionFactory {
 	private static ActionFactory instance =null;
@@ -22,6 +23,8 @@ public class ActionFactory {
 		Action action =null;
 		if(command.equals("storymap_add"))
 			action = new StorymapAddAction();
+		if(command.equals("storymap_detail"))
+			action = new StorymapDetailAction();
 		
 		return action;
 	}
