@@ -101,11 +101,10 @@ public class StorymapService {
 			System.out.println("Mk_x : " + mkDto.getMk_x());
 			System.out.println("Mk_y : " + mkDto.getMk_y());
 			System.out.println("Sb_title : " + mkDto.getStoryboard().getSb_title());
-			System.out.println("Sb_content : " + mkDto.getStoryboard().getSb_content());
 
-			for (String imgPath : mkDto.getStoryboard().getImgPathList()) {
+		/*	for (String imgPath : mkDto.getStoryboard().getImgPathList()) {
 				System.out.println("storyboard_Img_Path" + imgPath);
-			}
+			}*/
 		}
 		for (RouteDto rtDto : smDto.getRouteList()) {
 			System.out.println("getRt_type : " + rtDto.getRt_type());

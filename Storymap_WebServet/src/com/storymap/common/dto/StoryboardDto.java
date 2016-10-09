@@ -38,12 +38,15 @@ public class StoryboardDto {
 		this.mk_seq = mk_seq;
 	}
 
+	
 	public void setSb_title(String sb_title) {
 		this.sb_title = sb_title;
 	}
+	
 
 	
-    public int getSb_seq() {
+
+	public int getSb_seq() {
         return sb_seq;
     }
 
@@ -51,14 +54,15 @@ public class StoryboardDto {
         this.sb_seq = sb_seq;
     }
 
- 
-    public String getSb_content() {
-        return sb_content;
-    }
+	public String getSb_content() {
+		return sb_content;
+	}
 
-    public void setSb_content(String sb_content) {
-        this.sb_content = sb_content;
-    }
+	public void setSb_content(String sb_content) {
+		this.sb_content = sb_content;
+	}
+	
+
 
 	public List<String> getImgPathList() {
 		return imgPathList;
@@ -73,6 +77,9 @@ public class StoryboardDto {
 		return "StoryboardDto [mk_seq=" + mk_seq + ", sb_seq=" + sb_seq + ", sb_title=" + sb_title + ", sb_content="
 				+ sb_content + ", imgPathList=" + imgPathList + "]";
 	}
+
+
+	
 
     
 }

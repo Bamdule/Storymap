@@ -13,11 +13,8 @@ import com.storymap.util.DBManager;
 import com.storymap.util.JsonManager;
 
 public class RouteDao {
-	private JsonManager jm  =new JsonManager();
-	/*
-	Connection conn =null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;*/
+	private JsonManager jsonManager  =JsonManager.getInstance();
+
 	private static RouteDao instance=null;
 	
 	private RouteDao() {
@@ -44,7 +41,6 @@ public class RouteDao {
 			rs = pstmt.executeQuery();
 			routeList=new ArrayList<RouteDto>();
 			RouteDto rDto =null;
-			JsonManager jsonManager=new JsonManager();
 			/*
 			 * SM_CODE	NOT NULL	VARCHAR2(30)
 				MK_SEQ	NOT NULL	NUMBER
@@ -85,7 +81,7 @@ public class RouteDao {
 			pstmt=conn.prepareStatement(sql);
 			int rt_seq=1;
 			for(RouteDto rDto : routeList){
-				String moving_route = jm.instanceToJsonString(rDto.getMoving_route());
+				String moving_route = jsonManager.instanceToJsonString(rDto.getMoving_route());
 				pstmt.setString(1, sm_code);
 				pstmt.setInt(2, rt_seq);
 				pstmt.setString(3, rDto.getRt_type());

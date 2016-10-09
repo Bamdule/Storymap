@@ -3,6 +3,7 @@ package com.storymap.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.storymap.common.dao.StorymapDao;
 import com.storymap.common.dto.MarkerDto;
 import com.storymap.common.dto.Point;
 import com.storymap.common.dto.RouteDto;
@@ -11,11 +12,14 @@ import com.storymap.common.dto.StorymapDto;
 
 public class TestStorymap {
 	
-	public JsonManager jm=new JsonManager();
+	public JsonManager jm=JsonManager.getInstance();
+	StorymapDao smDao = StorymapDao.getInstance();
 	
 	public StorymapDto createStorymap(int mem_code){
 		StorymapDto sDto =new StorymapDto();
+		String sm_code=smDao.createNextStorymapByMemCode(mem_code);
 		sDto.setMem_code(mem_code);
+		sDto.setSm_code(sm_code);
 		sDto.setCity_code("c0001");
 		sDto.setSub_city_code("c0001_1");
 		sDto.setSm_img_path("image_path");
@@ -29,12 +33,12 @@ public class TestStorymap {
 		mDto.setMk_y(55.789789);
 		
 		StoryboardDto sbDto =new StoryboardDto();
-		List<String> imgPathList =new ArrayList<String>();
-		imgPathList.add("C:\\Users\\S501-04\\Desktop\\스토리맵\\PL-SQL");
-		imgPathList.add("C:\\Users\\S501-04\\Desktop\\스토리맵\\PL-SQL");
-		sbDto.setSb_content("스토리보드 내용입니다.!");
 		sbDto.setSb_title("스토리보드 제목!!");
-		sbDto.setImgPathList(imgPathList);
+		sbDto.setSb_content("스토리보드 내용");
+		List<String> imgList =new ArrayList<String>();
+		imgList.add("imag1");
+		imgList.add("imag2");
+		sbDto.setImgPathList(imgList);
 		mDto.setStoryboard(sbDto);
 		
 		List<MarkerDto> markerList =new ArrayList<MarkerDto>();

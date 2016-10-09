@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.storymap.common.dto.MarkerDto;
-import com.storymap.common.dto.StoryboardDto;
-import com.storymap.common.dto.StorymapDto;
 import com.storymap.util.DBManager;
 
 public class MarkerDao {/*
@@ -44,6 +42,7 @@ public class MarkerDao {/*
 		PreparedStatement pstmt = null;
 		boolean result = true;
 		boolean sb_result=true;
+		List<Integer> storyboardOfMarker =new ArrayList<Integer>();
 		StoryboardDao sbDao =StoryboardDao.getInstance();
 	
 		try {
@@ -52,8 +51,10 @@ public class MarkerDao {/*
 			pstmt = conn.prepareStatement(sql);
 			
 			for(MarkerDto mDto : markerList){
+				
+				mDto.setMk_seq(mk_seq);
 				pstmt.setString(1,sm_code);
-				pstmt.setInt(2,mk_seq);
+				pstmt.setInt(2,mDto.getMk_seq());
 				pstmt.setString(3, mDto.getMk_type());
 				pstmt.setDouble(4, mDto.getMk_x());
 				pstmt.setDouble(5, mDto.getMk_y());
@@ -73,13 +74,9 @@ public class MarkerDao {/*
 		
 		int sb_seq=1;
 		//마커의 스토리보드 DB에 저장 (DBConnection이 너무 많이 호출되어 분리함)
-		for(MarkerDto mDto : markerList){
-			if(mDto.getIs_sb().equals("1")){
-				if(mDto.getStoryboard()!=null)
-					sbDao.insertStoryboard(mDto.getStoryboard(), sm_code, sb_seq);
-			}
-			sb_seq++;
-		}
+	
+		sbDao.insertStoryboard(markerList, sm_code);
+		
 		
 		return result;
 	}

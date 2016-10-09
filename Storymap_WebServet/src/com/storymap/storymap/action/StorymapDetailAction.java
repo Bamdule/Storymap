@@ -15,8 +15,10 @@ public class StorymapDetailAction implements Action  {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String sm_code = request.getParameter("sm_code");
-		JsonManager jsonManager = new JsonManager();
+	//	String sm_code = request.getParameter("sm_code");
+		String sm_code = "sm16092621";
+		
+		JsonManager jsonManager = JsonManager.getInstance();
 		StorymapService smService = StorymapService.getInstance();
 		
 		StorymapDto smDto=smService.selectStorymap(sm_code);

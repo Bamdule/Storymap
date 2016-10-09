@@ -1,6 +1,5 @@
 package com.storymap.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -9,16 +8,19 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.storymap.common.dto.MarkerDto;
-import com.storymap.common.dto.StoryboardDto;
 import com.storymap.common.dto.StorymapDto;
 
 public class JsonManager {
 
-	public static void main(String[] args) {
-		JsonManager test = new JsonManager();
+	private static JsonManager instance = null;
+	private JsonManager(){
 	}
-	
-	
+	public static JsonManager getInstance(){
+		if(instance==null)
+			instance=new JsonManager();
+		
+		return instance;
+	}
 	
 	//List를 JsonArray로 변환
 	public JsonArray listToJsonArray(List<StorymapDto> list){

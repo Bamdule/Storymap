@@ -9,8 +9,8 @@
 <body>
 
 <div>
-	<form method="post" action="MemberServlet?command=mypage_info" enctype="multipart/form-data" name="frm" id="frm">
-		<input type="file" name="img">
+	<form method="post" action="http://localhost:8080/Storymap/StorymapServlet?command=storyboard_images_add" enctype="multipart/form-data" name="frm" id="frm">
+		<input type="file" name=storymap_image>
 		<input type="submit" value="전송">
 	</form>
 </div>
