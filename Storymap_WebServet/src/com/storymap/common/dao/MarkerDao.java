@@ -42,7 +42,6 @@ public class MarkerDao {/*
 		PreparedStatement pstmt = null;
 		boolean result = true;
 		boolean sb_result=true;
-		List<Integer> storyboardOfMarker =new ArrayList<Integer>();
 		StoryboardDao sbDao =StoryboardDao.getInstance();
 	
 		try {

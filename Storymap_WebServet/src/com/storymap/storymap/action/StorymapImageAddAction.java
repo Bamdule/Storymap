@@ -14,13 +14,13 @@ public class StorymapImageAddAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MultipartRequest multipartRequest=UploadManager.getMultiPartRequest(request,"images/storymap_images");
-		String storymap_Path=multipartRequest.getFilesystemName("storymap_image");
+		MultipartRequest mr=UploadManager.getMultiPartRequest(request,"images/storymap_images");
+		String storymap_Path=mr.getFilesystemName("storymap_image");
+		String orgin = mr.getOriginalFileName("storymap_image");
 		
 		System.out.println("storymap_Path : "+storymap_Path);
+		System.out.println("orgin : "+orgin);
 		
-		
-
 	}
 
 }

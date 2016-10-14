@@ -16,8 +16,8 @@ public class StorymapListAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//int mem_code = Integer.parseInt(request.getParameter("mem_code"));
-		int mem_code =1609262;
+		int mem_code = Integer.parseInt(request.getParameter("mem_code"));
+		//int mem_code =1610041;
 		JsonManager jsonManager = JsonManager.getInstance();
 		StorymapService smService=StorymapService.getInstance();
 		

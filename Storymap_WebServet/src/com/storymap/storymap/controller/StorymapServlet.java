@@ -20,7 +20,7 @@ public class StorymapServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 	
 			String command = request.getParameter("command");
-			if(command.equals(null))
+			if(command==null)
 				command="storymap_add";
 			System.out.println("command : " + command);
 			Action action = null;

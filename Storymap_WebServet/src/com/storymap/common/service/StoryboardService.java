@@ -17,13 +17,10 @@ public class StoryboardService {
 	}
 	public StoryboardDto selectStoryboard(String sm_code,int mk_seq){
 		StoryboardDto sbDto=sbDao.selectStoryboard(sm_code, mk_seq);
-		//sbDto.setImgPathList(selectStoryboardImgs(sm_code,mk_seq));
 		return sbDto;
 	}
 	public List<String> selectStoryboardImgs(String sm_code,int mk_seq){
 		return sbDao.selectStoryboardImgs(sm_code, mk_seq);
 	}
-	public List<Integer> findStoryboardOfMarker(String sm_code){
-		return sbDao.findStoryboardOfMarker(sm_code);
-	}
+
 }

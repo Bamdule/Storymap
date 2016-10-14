@@ -22,28 +22,28 @@ public class TestStorymap {
 		sDto.setSm_code(sm_code);
 		sDto.setCity_code("c0001");
 		sDto.setSub_city_code("c0001_1");
-		sDto.setSm_img_path("image_path");
 		sDto.setSm_title("스토리맵 제목");		
 		
-		MarkerDto mDto = new MarkerDto();
+
 		
-		mDto.setIs_sb("1");
-		mDto.setMk_type("mk0000");
-		mDto.setMk_x(150.165465);
-		mDto.setMk_y(55.789789);
-		
-		StoryboardDto sbDto =new StoryboardDto();
-		sbDto.setSb_title("스토리보드 제목!!");
-		sbDto.setSb_content("스토리보드 내용");
-		List<String> imgList =new ArrayList<String>();
-		imgList.add("imag1");
-		imgList.add("imag2");
-		sbDto.setImgPathList(imgList);
-		mDto.setStoryboard(sbDto);
+	
 		
 		List<MarkerDto> markerList =new ArrayList<MarkerDto>();
-		for(int i=0; i<5;i++)
+		for(int i=0; i<5;i++){
+			MarkerDto mDto = new MarkerDto();
+			mDto.setMk_seq(i+1);
+			mDto.setIs_sb("1");
+			mDto.setMk_type("mk0000");
+			mDto.setMk_x(150.165465);
+			mDto.setMk_y(55.789789);
+			
+			StoryboardDto sbDto =new StoryboardDto();
+			sbDto.setMk_seq(i+1);
+			sbDto.setSb_title("스토리보드 제목!!");
+			sbDto.setSb_content("스토리보드 내용");
+			mDto.setStoryboard(sbDto);
 			markerList.add(mDto);
+		}
 		
 		RouteDto rDto =new RouteDto();
 		

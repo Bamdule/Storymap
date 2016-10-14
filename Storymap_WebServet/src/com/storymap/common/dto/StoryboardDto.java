@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class StoryboardDto {
 	private int mk_seq;
-	private int sb_seq;
 	private String sb_title;
 	private String sb_content;
 	private List<String> imgPathList;
@@ -45,14 +44,7 @@ public class StoryboardDto {
 	
 
 	
-
-	public int getSb_seq() {
-        return sb_seq;
-    }
-
-    public void setSb_seq(int sb_seq) {
-        this.sb_seq = sb_seq;
-    }
+	
 
 	public String getSb_content() {
 		return sb_content;
@@ -74,8 +66,8 @@ public class StoryboardDto {
 
 	@Override
 	public String toString() {
-		return "StoryboardDto [mk_seq=" + mk_seq + ", sb_seq=" + sb_seq + ", sb_title=" + sb_title + ", sb_content="
-				+ sb_content + ", imgPathList=" + imgPathList + "]";
+		return "StoryboardDto [mk_seq=" + mk_seq + ", sb_title=" + sb_title + ", sb_content=" + sb_content
+				+ ", imgPathList=" + imgPathList + "]";
 	}
 
 

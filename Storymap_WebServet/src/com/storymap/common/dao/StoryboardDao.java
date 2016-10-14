@@ -22,62 +22,62 @@ public class StoryboardDao {
 			instance = new StoryboardDao();
 		return instance;
 	}
-	
-	public StoryboardDto selectStoryboard(String sm_code, int mk_seq){
-		StoryboardDto sbDto =null;
+
+	public StoryboardDto selectStoryboard(String sm_code, int mk_seq) {
+		StoryboardDto sbDto = null;
 		String sql = "SELECT mk_seq, sb_title,sb_content FROM STORYBOARD WHERE sm_code = ? AND mk_seq = ?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs =null;
-		
+		ResultSet rs = null;
+
 		try {
 			conn = DBManager.getConnection();
-			pstmt= conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, sm_code);
 			pstmt.setInt(2, mk_seq);
-			rs=pstmt.executeQuery();
-			
-			sbDto=new StoryboardDto();
-			while(rs.next()){
+			rs = pstmt.executeQuery();
+
+			sbDto = new StoryboardDto();
+			while (rs.next()) {
 				sbDto.setMk_seq(rs.getInt("mk_seq"));
 				sbDto.setSb_title(rs.getString("sb_title"));
 				sbDto.setSb_content(rs.getString("sb_content"));
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBManager.close(conn, pstmt, rs);
 		}
-		sbDto.setImgPathList(selectStoryboardImgs(sm_code,mk_seq));
+		sbDto.setImgPathList(selectStoryboardImgs(sm_code, mk_seq));
 		return sbDto;
 	}
-	
-	public List<String> selectStoryboardImgs(String sm_code, int mk_seq){
-		List<String> imgList=null;
-		
+
+	public List<String> selectStoryboardImgs(String sm_code, int mk_seq) {
+		List<String> imgList = null;
+
 		String sql = "SELECT IMG_PATH FROM STORYBOARD_IMGS WHERE sm_code=? AND mk_seq = ?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs =null;
-		
+		ResultSet rs = null;
+
 		try {
 			conn = DBManager.getConnection();
-			pstmt= conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, sm_code);
 			pstmt.setInt(2, mk_seq);
-			rs=pstmt.executeQuery();
-			imgList=new ArrayList<String>();
-			while(rs.next()){
+			rs = pstmt.executeQuery();
+			imgList = new ArrayList<String>();
+			while (rs.next()) {
 				imgList.add(rs.getString("img_path"));
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBManager.close(conn, pstmt, rs);
 		}
-		
+
 		return imgList;
 	}
 
@@ -87,17 +87,15 @@ public class StoryboardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		/*
-		 * SM_CODE NOT NULL VARCHAR2(30) 
-		 * MK_SEQ NOT NULL NUMBER 
-		 * SB_TITLE VARCHAR2(100) 
-		 * SB_CONTENT NOT NULL VARCHAR2(3000)
+		 * SM_CODE NOT NULL VARCHAR2(30) MK_SEQ NOT NULL NUMBER SB_TITLE
+		 * VARCHAR2(100) SB_CONTENT NOT NULL VARCHAR2(3000)
 		 */
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			
-			for(MarkerDto mkDto : markerList){
-				if(mkDto.getIs_sb().equals("1")){
+
+			for (MarkerDto mkDto : markerList) {
+				if (mkDto.getIs_sb().equals("1")) {
 					pstmt.setString(1, sm_code);
 					pstmt.setInt(2, mkDto.getMk_seq());
 					pstmt.setString(3, mkDto.getStoryboard().getSb_title());
@@ -105,7 +103,6 @@ public class StoryboardDao {
 					pstmt.executeUpdate();
 				}
 			}
-			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -113,69 +110,29 @@ public class StoryboardDao {
 		} finally {
 			DBManager.close(conn, pstmt);
 		}
-		
-		insertStoryboard_imgs(markerList,sm_code);
+
+	//	insertStoryboard_imgs(markerList, sm_code);
 		return result;
 	}
-	
-	
-	/*
-	 *  IMG_SEQ	NOT NULL	NUMBER
-		SM_CODE	NOT NULL	VARCHAR2(20)
-		MK_SEQ	NOT NULL	NUMBER
-		IMG_PATH		VARCHAR2(300)
-	 */
-	public boolean insertStoryboard_imgs(List<MarkerDto> markerList, String sm_code){
-		
-		boolean result = true;
-		String sql = "insert into storyboard_imgs (img_seq,sm_code,mk_seq,img_path) values (storyboard_img_seq.nextval,?,?,?)";
+
+	public void insertStoryboardImages(String sm_code, int mk_seq, List<String> imgList) {
+		String sql = "insert into storyboard_imgs values(STORYBOARD_IMG_SEQ.nextval,?,?,?)";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
-
-			for(MarkerDto mkDto : markerList){
-				if(mkDto.getIs_sb().equals("1"))
-					for(String img_path : mkDto.getStoryboard().getImgPathList()){
-						pstmt.setString(1, sm_code);
-						pstmt.setInt(2, mkDto.getMk_seq());
-						pstmt.setString(4, img_path);
-						pstmt.executeUpdate();
-					}
+			for (String imgPath : imgList) {
+				pstmt.setString(1, sm_code);
+				pstmt.setInt(2, mk_seq);
+				pstmt.setString(3, imgPath);
+				pstmt.executeUpdate();
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
-			result = false;
 		} finally {
 			DBManager.close(conn, pstmt);
 		}
-		return result;
-	}
-	
-	public List<Integer> findStoryboardOfMarker(String sm_code){
-		String sql= "SELECT mk_seq FROM storyboard WHERE sm_code = ?";
-		List<Integer> sb_seqList =null;
-		Connection conn =null;
-		PreparedStatement pstmt =null;
-		ResultSet rs= null;
-		try {
-			conn=DBManager.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, sm_code);
-			rs = pstmt.executeQuery();
-			sb_seqList=new ArrayList<Integer>();
-			while(rs.next()){
-				sb_seqList.add(rs.getInt("mk_seq"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally{
-			DBManager.close(conn, pstmt, rs);
-		}
-		
-		return sb_seqList;
-		
+
 	}
 }

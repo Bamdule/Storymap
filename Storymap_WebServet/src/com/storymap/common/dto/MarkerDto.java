@@ -6,7 +6,7 @@ import java.util.List;
  * Created by S501-04 on 2016-09-21.
  */
 public class MarkerDto {
-	private int mk_seq;
+	private int mk_seq;//첫번째 마커는 1이고, 다음 마커마다 1씩 증가한다.
     private String mk_type;
     private double mk_x;
     private double mk_y;

@@ -9,8 +9,12 @@
 <body>
 
 <div>
-	<form method="post" action="http://localhost:8080/Storymap/StorymapServlet?command=storyboard_images_add" enctype="multipart/form-data" name="frm" id="frm">
-		<input type="file" name=storymap_image>
+	<form method="post" action="http://localhost:8080/Storymap/StoryboardServlet?command=storyboard_images_add" enctype="multipart/form-data" name="frm" id="frm">
+		<input type="file" name="storymap_image1">
+		<input type="file" name="storymap_image2">
+		<input type="hidden" name="sm_code" value="sm16100411">
+		<input type="hidden" name="mk_seq" value="1">
+		
 		<input type="submit" value="전송">
 	</form>
 </div>

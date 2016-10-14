@@ -17,34 +17,34 @@ public class StorymapAddAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String storymap_Json =request.getParameter("storymap");
+		StorymapDto smDto=null;
+		try{
+			int mem_code = Integer.parseInt(request.getParameter("mem_code"));
+			StorymapService smService = StorymapService.getInstance();
+			JsonManager jsonManager = JsonManager.getInstance();
+			
+			//받은 Json을 instance로 변환한다.
+			smDto=(StorymapDto)jsonManager.jsonStringToInstance(storymap_Json);
+			System.out.println(smDto);
+			boolean result=smService.insertStorymap(smDto, mem_code);
+			
+		}
+		catch(NumberFormatException e){
+			e.printStackTrace();
+		}
+	//	testAddStorymap();
+
+		response.setContentType("charset=UTF-8");
+		response.getWriter().print(smDto.getSm_code());
+	}
 	
-		
-	/*	String storymap_Json =request.getParameter("storymap");
-		int mem_code = Integer.parseInt(request.getParameter("mem_code"));
-		JsonManager jsonManager =JsonManager.getInstance();
-		StorymapDto smDto=(StorymapDto)jsonManager.jsonStringToInstance(storymap_Json);
-		
-		System.out.println(smDto);
-		StorymapService smService = StorymapService.getInstance();
-		
-		boolean result=smService.insertStorymap(smDto, mem_code);*/
-		JsonManager jsonManager = JsonManager.getInstance();
-		int mem_code=1609262;
+	public void testAddStorymap(){
+		int mem_code=1610041;
 		StorymapService smService = StorymapService.getInstance();
 		TestStorymap ts =new TestStorymap();
-		String storymapString = ts.requestStorymap(mem_code);
-		
-		StorymapDto sDto =(StorymapDto)jsonManager.jsonStringToInstance(storymapString);
-		smService.insertStorymap(sDto, mem_code);
-		
-		
-	    StorymapDto smDto = smService.selectStorymap(sDto.getSm_code());
-		System.out.println(smDto);
-		List<StorymapDto> smList=smService.selectAllStorymap(mem_code);
-		
-		for(StorymapDto Dto : smList){
-			smService.storymapView(Dto);
-		}
+		StorymapDto smDto =ts.createStorymap(mem_code);
+		smService.insertStorymap(smDto, mem_code);
 	}
 
 }
