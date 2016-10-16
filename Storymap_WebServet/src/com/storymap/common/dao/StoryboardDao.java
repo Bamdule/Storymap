@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.storymap.common.dto.MarkerDto;
 import com.storymap.common.dto.StoryboardDto;
+import com.storymap.common.dto.Storyboard_imgs;
 import com.storymap.util.DBManager;
 
 public class StoryboardDao {
@@ -49,14 +50,16 @@ public class StoryboardDao {
 		} finally {
 			DBManager.close(conn, pstmt, rs);
 		}
-		sbDto.setImgPathList(selectStoryboardImgs(sm_code, mk_seq));
+		sbDto.setStoryboard_imgs(selectStoryboardImgs(sm_code, mk_seq));
 		return sbDto;
 	}
 
-	public List<String> selectStoryboardImgs(String sm_code, int mk_seq) {
-		List<String> imgList = null;
+	public Storyboard_imgs selectStoryboardImgs(String sm_code, int mk_seq) {
+		List<String> imageList = null;
+		List<String> thumbnailList=null;
+		Storyboard_imgs storyboard_imgs=null;
 
-		String sql = "SELECT IMG_PATH FROM STORYBOARD_IMGS WHERE sm_code=? AND mk_seq = ?";
+		String sql = "SELECT IMG_PATH,thumbnail_id FROM STORYBOARD_IMGS WHERE sm_code=? AND mk_seq = ?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -67,10 +70,16 @@ public class StoryboardDao {
 			pstmt.setString(1, sm_code);
 			pstmt.setInt(2, mk_seq);
 			rs = pstmt.executeQuery();
-			imgList = new ArrayList<String>();
+			storyboard_imgs=new Storyboard_imgs();
+			imageList = new ArrayList<String>();
+			thumbnailList = new ArrayList<String>();
 			while (rs.next()) {
-				imgList.add(rs.getString("img_path"));
+				imageList.add(rs.getString("img_path"));
+				thumbnailList.add(rs.getString("thumbnail_id"));
 			}
+			storyboard_imgs.setImageList(imageList);
+			storyboard_imgs.setThumbnailList(thumbnailList);
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -78,7 +87,7 @@ public class StoryboardDao {
 			DBManager.close(conn, pstmt, rs);
 		}
 
-		return imgList;
+		return storyboard_imgs;
 	}
 
 	public boolean insertStoryboard(List<MarkerDto> markerList, String sm_code) {
@@ -115,18 +124,21 @@ public class StoryboardDao {
 		return result;
 	}
 
-	public void insertStoryboardImages(String sm_code, int mk_seq, List<String> imgList) {
-		String sql = "insert into storyboard_imgs values(STORYBOARD_IMG_SEQ.nextval,?,?,?)";
+	public void insertStoryboardImages(String sm_code, int mk_seq, Storyboard_imgs storyboard_imgs) {
+		String sql = "insert into storyboard_imgs values(STORYBOARD_IMG_SEQ.nextval,?,?,?,?)";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			for (String imgPath : imgList) {
+			int index=0;
+			for (String imgPath : storyboard_imgs.getImageList()) {
 				pstmt.setString(1, sm_code);
 				pstmt.setInt(2, mk_seq);
 				pstmt.setString(3, imgPath);
+				pstmt.setString(4, storyboard_imgs.getThumbnailList().get(index));
 				pstmt.executeUpdate();
+				index++;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

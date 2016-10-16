@@ -9,7 +9,7 @@ public class StoryboardDto {
 	private int mk_seq;
 	private String sb_title;
 	private String sb_content;
-	private List<String> imgPathList;
+	private Storyboard_imgs storyboard_imgs;
 
 	/*
     mk_seq
@@ -41,10 +41,7 @@ public class StoryboardDto {
 	public void setSb_title(String sb_title) {
 		this.sb_title = sb_title;
 	}
-	
 
-	
-	
 
 	public String getSb_content() {
 		return sb_content;
@@ -53,24 +50,21 @@ public class StoryboardDto {
 	public void setSb_content(String sb_content) {
 		this.sb_content = sb_content;
 	}
-	
 
 
-	public List<String> getImgPathList() {
-		return imgPathList;
+	public Storyboard_imgs getStoryboard_imgs() {
+		return storyboard_imgs;
 	}
 
-	public void setImgPathList(List<String> imgPathList) {
-		this.imgPathList = imgPathList;
+	public void setStoryboard_imgs(Storyboard_imgs storyboard_imgs) {
+		this.storyboard_imgs = storyboard_imgs;
 	}
 
 	@Override
 	public String toString() {
 		return "StoryboardDto [mk_seq=" + mk_seq + ", sb_title=" + sb_title + ", sb_content=" + sb_content
-				+ ", imgPathList=" + imgPathList + "]";
+				+ ", storyboard_imgs=" + storyboard_imgs + "]";
 	}
-
-
 	
 
     

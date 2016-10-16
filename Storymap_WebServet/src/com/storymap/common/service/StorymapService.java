@@ -56,7 +56,7 @@ public class StorymapService {
 			rtList = rtDao.selectAllRoute(smDto.getSm_code());
 			for (MarkerDto mkDto : mkList) {
 				StoryboardDto sbDto = sbDao.selectStoryboard(smDto.getSm_code(), mkDto.getMk_seq());
-				sbDto.setImgPathList(sbDao.selectStoryboardImgs(smDto.getSm_code(), mkDto.getMk_seq()));
+				sbDto.setStoryboard_imgs(sbDao.selectStoryboardImgs(smDto.getSm_code(), mkDto.getMk_seq()));
 				mkDto.setStoryboard(sbDto);
 			}
 
@@ -78,7 +78,7 @@ public class StorymapService {
 
 			for (MarkerDto mkDto : mkList) {
 				StoryboardDto sbDto = sbDao.selectStoryboard(sm_code, mkDto.getMk_seq());
-				sbDto.setImgPathList(sbDao.selectStoryboardImgs(sm_code, mkDto.getMk_seq()));
+				sbDto.setStoryboard_imgs(sbDao.selectStoryboardImgs(sm_code, mkDto.getMk_seq()));
 				mkDto.setStoryboard(sbDto);
 			}
 

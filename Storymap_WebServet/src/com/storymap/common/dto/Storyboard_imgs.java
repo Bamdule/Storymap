@@ -5,7 +5,14 @@ import java.util.List;
 public class Storyboard_imgs {
 	private int mk_seq;
 	private List<String> imageList;
+	private List<String> thumbnailList;
 
+	public List<String> getThumbnailList() {
+		return thumbnailList;
+	}
+	public void setThumbnailList(List<String> thumbnailList) {
+		this.thumbnailList = thumbnailList;
+	}
 	public int getMk_seq() {
 		return mk_seq;
 	}
@@ -20,7 +27,8 @@ public class Storyboard_imgs {
 	}
 	@Override
 	public String toString() {
-		return "Storyboard_imgs [mk_seq=" + mk_seq + ", imageList=" + imageList + "]";
+		return "Storyboard_imgs [mk_seq=" + mk_seq + ", imageList=" + imageList + ", thumbnailList=" + thumbnailList
+				+ "]";
 	}
 	
 

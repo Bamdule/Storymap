@@ -1,9 +1,9 @@
 package com.storymap.common.service;
 
-import java.util.List;
 
 import com.storymap.common.dao.StoryboardDao;
 import com.storymap.common.dto.StoryboardDto;
+import com.storymap.common.dto.Storyboard_imgs;
 public class StoryboardService {
 	private StoryboardDao sbDao =StoryboardDao.getInstance();
 	private static StoryboardService instance = null;
@@ -19,7 +19,7 @@ public class StoryboardService {
 		StoryboardDto sbDto=sbDao.selectStoryboard(sm_code, mk_seq);
 		return sbDto;
 	}
-	public List<String> selectStoryboardImgs(String sm_code,int mk_seq){
+	public Storyboard_imgs selectStoryboardImgs(String sm_code,int mk_seq){
 		return sbDao.selectStoryboardImgs(sm_code, mk_seq);
 	}
 
