@@ -8,11 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.storymap.common.action.Action;
 
-public class MyStorymapListAction implements Action {
+public class FriendRequestAcceptAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 	}
 

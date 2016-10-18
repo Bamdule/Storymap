@@ -3,8 +3,6 @@ package com.storymap.storymap.controller;
 import com.storymap.common.action.Action;
 import com.storymap.member.action.MemberAddAction;
 import com.storymap.member.action.MemberImageAddAction;
-import com.storymap.member.action.MyPageInfoAction;
-import com.storymap.member.action.MyStorymapListAction;
 import com.storymap.storymap.action.StorymapAddAction;
 import com.storymap.storymap.action.StorymapDetailAction;
 import com.storymap.storymap.action.StorymapImageAddAction;

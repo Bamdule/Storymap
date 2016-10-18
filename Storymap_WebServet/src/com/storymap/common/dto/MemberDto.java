@@ -9,8 +9,21 @@ public class MemberDto {
 	private String mem_pwd;
 	private String mem_name;
 	private String mem_img_path;
+	private String loginFlag;
 
-    public MemberDto(){
+    public String getMem_code() {
+		return mem_code;
+	}
+	public String getLoginFlag() {
+		return loginFlag;
+	}
+	public void setMem_code(String mem_code) {
+		this.mem_code = mem_code;
+	}
+	public void setLoginFlag(String loginFlag) {
+		this.loginFlag = loginFlag;
+	}
+	public MemberDto(){
 
     }
     public MemberDto( String mem_email, String mem_pwd, String mem_name, String mem_img_path) {
@@ -61,14 +74,9 @@ public class MemberDto {
 
 
     @Override
-    public String toString() {
-        return "MemberDto{" +
-                "mem_code='" + mem_code + '\'' +
-                ", mem_email='" + mem_email + '\'' +
-                ", mem_pwd='" + mem_pwd + '\'' +
-                ", mem_name='" + mem_name + '\'' +
-                ", mem_img_path='" + mem_img_path + '\'' +
-                '}';
-    }
+	public String toString() {
+		return "MemberDto [mem_code=" + mem_code + ", mem_email=" + mem_email + ", mem_pwd=" + mem_pwd + ", mem_name="
+				+ mem_name + ", mem_img_path=" + mem_img_path + ", loginFlag=" + loginFlag + "]";
+	}
 
 }
