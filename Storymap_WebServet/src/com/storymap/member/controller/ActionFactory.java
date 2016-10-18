@@ -1,7 +1,6 @@
 package com.storymap.member.controller;
 
 import com.storymap.common.action.Action;
-import com.storymap.member.action.FriendAddAction;
 import com.storymap.member.action.MemberAddAction;
 import com.storymap.member.action.MemberEmailDuplicateCheckAction;
 import com.storymap.member.action.MemberImageAddAction;
@@ -29,8 +28,6 @@ public class ActionFactory {
 			action = new MemberEmailDuplicateCheckAction();
 		else if(command.equals("member_login"))
 			action = new MemberLoginAction();
-		else if(command.equals("friend_add"))
-			action = new FriendAddAction();
 		
 		return action;
 	}

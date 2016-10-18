@@ -1,4 +1,4 @@
-package com.storymap.member.action;
+package com.storymap.friend.action;
 
 import java.io.IOException;
 
@@ -8,10 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.storymap.common.action.Action;
 
-public class FriendRequestListAction implements Action{
+public class FriendDeleteAction implements Action {
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
+
 	}
 
 }

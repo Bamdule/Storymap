@@ -1,4 +1,4 @@
-package com.storymap.member.action;
+package com.storymap.friend.action;
 
 import java.io.IOException;
 
