@@ -1,6 +1,9 @@
 package com.storymap.common.service;
 
+import java.util.List;
+
 import com.storymap.common.dao.MemberDao;
+import com.storymap.common.dto.FriendDto;
 import com.storymap.common.dto.MemberDto;
 
 public class MemberService {
@@ -28,7 +31,24 @@ public class MemberService {
 		return mDao.selectMember(mem_email, mem_pwd);
 	
 	}
+	//친구요청
 	public int friendRequest(int mem_code,int friend_code){
 		return mDao.friendRequest(mem_code, friend_code);
+	}
+	//친구요청수락
+	public boolean acceptFriendRequest(int mem_code,int friend_code){
+		return mDao.acceptFriendRequest(mem_code, friend_code);
+	}
+	//친구요청 거절
+	public boolean cancelFriendRequest(int mem_code,int friend_code){
+		return mDao.cancelFriendRequest(mem_code, friend_code);
+	}
+	//친구요청리스트
+	public List<FriendDto> selectAllFriendRequest(int mem_code){
+		return mDao.selectAllFriendRequest(mem_code);
+	}
+	//친구리스트
+	public List<Integer> selectAllFriends(int mem_code){
+		return mDao.selectAllFriends(mem_code);
 	}
 }

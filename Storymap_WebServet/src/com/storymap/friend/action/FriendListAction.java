@@ -8,17 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.storymap.common.action.Action;
-import com.storymap.common.dto.FriendDto;
 import com.storymap.common.service.MemberService;
 
-public class FriendRequestListAction implements Action {
+public class FriendListAction implements Action {
 	MemberService mService =MemberService.getInstance();
-
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mem_code = Integer.parseInt(request.getParameter("mem_code"));
 
-		List<FriendDto> friendList =mService.selectAllFriendRequest(mem_code);
+		List<Integer> friendList =mService.selectAllFriends(mem_code);
 		
 	}
 
