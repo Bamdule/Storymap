@@ -36,7 +36,7 @@ public class MemberDao {
 			rs=pstmt.executeQuery();
 			if(rs.next()){
 				mDto=new MemberDto();
-				mDto.setmem_code(rs.getString("MEM_CODE"));
+				mDto.setMem_code(rs.getInt("MEM_CODE"));
 				mDto.setMem_email(rs.getString("MEM_EMAIL"));
 				mDto.setMem_name(rs.getString("MEM_NAME"));
 				mDto.setMem_img_path(rs.getString("mem_img_path"));
@@ -50,6 +50,8 @@ public class MemberDao {
 	}
 	
 	public boolean insertMember(MemberDto mDto){
+		
+		System.out.println(mDto);
 		String sql = " insert into member values(CREATE_NEXT_MEMBERID,?,?,?,?)";
 		boolean result =false;
 		Connection conn = null;
@@ -150,11 +152,42 @@ public class MemberDao {
 		return friendList;
 	}
 	
+	public List<FriendDto> selectAllFriendInfo(List<Integer> friend_codes){
+		String sql="select * from member where mem_code = ?";
+		List<FriendDto> friendList = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+			try {
+				conn = DBManager.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				friendList=new ArrayList<FriendDto>();
+				for(Integer friend_code : friend_codes){
+					pstmt.setInt(1, friend_code);
+					rs=pstmt.executeQuery();
+					if(rs.next()){
+						FriendDto fDto = new FriendDto();
+						fDto.setFriend_code(friend_code);
+						fDto.setMem_name(rs.getString("mem_name"));
+						fDto.setMem_img_path(rs.getString("mem_img_path"));
+						friendList.add(fDto);
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally{
+				DBManager.close(conn, pstmt,rs);
+			}
+		
+		return friendList;
+	}
 	
 	
-	//친구요청 리스트 
+	//자신에게 온 친구요청 리스트 
 	public List<FriendDto> selectAllFriendRequest(int mem_code){
-		String sql ="select * from friend where mem_code = ? and reg_status=0";
+		String sql ="select f.friend_code , f.REG_STATUS, m.MEM_NAME, m.MEM_IMG_PATH "  
+					+"from FRIEND f , MEMBER m " 
+					+"where f.mem_code = ? and reg_status=0  AND f.FRIEND_CODE=m.MEM_CODE ";
 		List<FriendDto> friendRequestList = new ArrayList<FriendDto>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -168,8 +201,10 @@ public class MemberDao {
 				
 				while(rs.next()){
 					FriendDto fDto = new FriendDto();
-					fDto.setFriend_code(rs.getInt("friend_code"));
-					fDto.setReg_status(rs.getInt("reg_status"));
+					fDto.setFriend_code(rs.getInt(1));
+					fDto.setReg_status(rs.getInt(2));
+					fDto.setMem_name(rs.getString(3));
+					fDto.setMem_img_path(rs.getString(4));
 					friendRequestList.add(fDto);
 				}
 				
@@ -203,7 +238,7 @@ public class MemberDao {
 			
 		return result;
 	}
-	
+	//친구요청
 	public int friendRequest(int mem_code,int friend_code){
 		String sql ="insert into friend values(?,?,0)";
 		int result=4;
@@ -285,7 +320,7 @@ public class MemberDao {
 	
 	//친구요청 취소
 		public boolean cancelFriendRequest(int mem_code,int friend_code){
-			String sql ="delete from friend where mem_code = ? and friend_code = ?";
+			String sql ="delete from friend where mem_code = ? and friend_code = ? and reg_status = 0";
 			boolean result = false;
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -305,5 +340,59 @@ public class MemberDao {
 				
 			return result;
 		}
+		
+		//친구삭제
+		public boolean deleteFriendRequest(int mem_code,int friend_code){
+			String sql ="delete from friend where mem_code = ? and friend_code = ? and reg_status = 1";
+			boolean result = false;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+				try {
+					conn = DBManager.getConnection();
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, mem_code);
+					pstmt.setInt(2, friend_code);
+					if(pstmt.executeUpdate()==1)
+						result = true;
+							
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}finally{
+						DBManager.close(conn, pstmt);
+					}
+					
+			return result;
+		}
+		
+		public MemberDto searchMember(int mem_code){
+			String sql ="select mem_code,mem_name,mem_img_path from member where mem_code=?";
+			MemberDto mDto = null;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+				try {
+					conn = DBManager.getConnection();
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, mem_code);
+					rs=pstmt.executeQuery();
+					
+					if(rs.next()){
+						mDto=new MemberDto();
+						mDto.setMem_code(mem_code);
+						mDto.setMem_name(rs.getString("mem_name"));
+						mDto.setMem_img_path(rs.getString("mem_img_path"));
+						
+					}
+							
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}finally{
+						DBManager.close(conn, pstmt,rs);
+					}
+					
+			return mDto;
+		}
+		
+			
 
 }

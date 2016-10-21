@@ -94,6 +94,7 @@ public class StorymapDao {
 			DBManager.close(conn, pstmt, rs);
 		}
 
+		System.out.println("smDao List "+ smList);
 		return smList;
 	}
 

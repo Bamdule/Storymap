@@ -8,18 +8,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.storymap.common.action.Action;
 import com.storymap.common.service.MemberService;
+import com.storymap.util.JsonManager;
 
-public class FriendRequestCancelAction implements Action{
-	MemberService mService =MemberService.getInstance();
+public class FriendSearchAction implements Action {
+
+	MemberService memberService=MemberService.getInstance();
+	JsonManager jsonManager =JsonManager.getInstance();
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int mem_code = Integer.parseInt(request.getParameter("mem_code"));
-		int friend_code = Integer.parseInt(request.getParameter("friend_code"));
-
-		boolean result =mService.cancelFriendRequest(mem_code, friend_code);
-
+		int mem_code = Integer.valueOf(request.getParameter("mem_code"));
+		
+		
+		String jsonString=jsonManager.instanceToJsonString(memberService.searchMember(mem_code));
 		response.setContentType("charset=UTF-8");
-		response.getWriter().print(String.valueOf(result));
+		response.getWriter().print(jsonString);
 	}
 
 }

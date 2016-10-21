@@ -38,7 +38,6 @@ public class ThumbnailHelper {
             Graphics2D graphic = buffer_thumbnail_image.createGraphics();
             graphic.drawImage(buffer_original_image, 0, 0, t_width, t_height, null);
             ImageIO.write(buffer_thumbnail_image, "jpg", thumbnailFile);
-            System.out.println("썸네일 생성완료");
         } catch (Exception e) {
             e.printStackTrace();
         }

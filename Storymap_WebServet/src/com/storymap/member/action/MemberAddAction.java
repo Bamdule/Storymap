@@ -33,7 +33,9 @@ public class MemberAddAction implements Action {
 		System.out.println(mem_img_path);
 		
 		if(memberNullCheck(mDto)){
-			result=mService.insertMember(mDto);
+			
+			if(!mService.emailDuplicateCheck(mem_email))
+				result=mService.insertMember(mDto);
 		}
 
 		response.setContentType("charset=UTF-8");

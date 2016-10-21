@@ -48,7 +48,10 @@ public class MemberService {
 		return mDao.selectAllFriendRequest(mem_code);
 	}
 	//친구리스트
-	public List<Integer> selectAllFriends(int mem_code){
-		return mDao.selectAllFriends(mem_code);
+	public List<FriendDto> selectAllFriends(int mem_code){
+		return mDao.selectAllFriendInfo(mDao.selectAllFriends(mem_code));
+	}
+	public MemberDto searchMember(int mem_code){
+		return mDao.searchMember(mem_code);
 	}
 }

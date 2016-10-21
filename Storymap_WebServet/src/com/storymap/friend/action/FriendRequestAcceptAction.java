@@ -15,10 +15,10 @@ public class FriendRequestAcceptAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mem_code = Integer.parseInt(request.getParameter("mem_code"));
 		int friend_code = Integer.parseInt(request.getParameter("friend_code"));
-
 		boolean result =mService.acceptFriendRequest(mem_code, friend_code);
 		
-
+		response.setContentType("charset=UTF-8");
+		response.getWriter().print(String.valueOf(result));
 	}
 
 }

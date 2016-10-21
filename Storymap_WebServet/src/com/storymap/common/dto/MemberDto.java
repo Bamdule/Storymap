@@ -1,25 +1,27 @@
 package com.storymap.common.dto;
 
-/**
- * Created by S501-04 on 2016-09-20.
- */
+
 public class MemberDto {
-	private String mem_code;
+	private int mem_code;
 	private String mem_email;
 	private String mem_pwd;
 	private String mem_name;
 	private String mem_img_path;
 	private String loginFlag;
 
-    public String getMem_code() {
-		return mem_code;
-	}
+   
 	public String getLoginFlag() {
 		return loginFlag;
 	}
-	public void setMem_code(String mem_code) {
+	
+	public int getMem_code() {
+		return mem_code;
+	}
+
+	public void setMem_code(int mem_code) {
 		this.mem_code = mem_code;
 	}
+
 	public void setLoginFlag(String loginFlag) {
 		this.loginFlag = loginFlag;
 	}
@@ -33,9 +35,7 @@ public class MemberDto {
         this.mem_img_path = mem_img_path;
     }
 
-    public String getmem_code() {
-        return mem_code;
-    }
+  
 
     public String getMem_email() {
         return mem_email;
@@ -53,9 +53,7 @@ public class MemberDto {
         return mem_img_path;
     }
 
-    public void setmem_code(String mem_code) {
-        this.mem_code = mem_code;
-    }
+ 
     public void setMem_email(String mem_email) {
         this.mem_email = mem_email;
     }

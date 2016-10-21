@@ -7,8 +7,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.storymap.common.dto.MarkerDto;
-import com.storymap.common.dto.StorymapDto;
 
 public class JsonManager {
 
@@ -23,14 +21,14 @@ public class JsonManager {
 	}
 	
 	//List를 JsonArray로 변환
-	public JsonArray listToJsonArray(List<StorymapDto> list){
-		return new Gson().toJsonTree(list, new TypeToken<List<StorymapDto>>() {}.getType()).getAsJsonArray();
+	public JsonArray listToJsonArray(List list){
+		return new Gson().toJsonTree(list, new TypeToken<List>() {}.getType()).getAsJsonArray();
 	}
 	
 	
 	//JsonArrayString을 List로 변환
 	public List jsonArrayToList(String JsonArrayStr){
-		List<MarkerDto> list =null;
+		List list =null;
 		Gson gson = new Gson();
 		list=gson.fromJson(JsonArrayStr, new TypeToken<List>(){}.getType());
 		return list;
@@ -45,9 +43,8 @@ public class JsonManager {
 	}
 	
 	//json을 Instance로 변환
-	public Object jsonStringToInstance(String json){
-		return new Gson().fromJson(json, StorymapDto.class);
+	public Object jsonStringToInstance(String json,Class<?> c){
+		return new Gson().fromJson(json, c);
 	}
 	
-
 }
