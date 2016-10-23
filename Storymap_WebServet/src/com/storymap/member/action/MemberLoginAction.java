@@ -24,7 +24,7 @@ public class MemberLoginAction implements Action {
 		MemberDto mDto=null;
 
 		switch(result){
-		case 1://Log Success
+		case 1://Log Successff\\
 			mDto=mService.selectMember(mem_email, mem_pwd);
 			break;
 		case 2://pwd dismatch

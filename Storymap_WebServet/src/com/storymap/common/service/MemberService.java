@@ -1,5 +1,6 @@
 package com.storymap.common.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.storymap.common.dao.MemberDao;
@@ -49,9 +50,16 @@ public class MemberService {
 	}
 	//친구리스트
 	public List<FriendDto> selectAllFriends(int mem_code){
-		return mDao.selectAllFriendInfo(mDao.selectAllFriends(mem_code));
+		List<Integer> friend_codes = mDao.selectAllFriends(mem_code);
+		if(friend_codes.size()>0 && friend_codes!=null)
+			return mDao.selectAllFriendInfo(friend_codes);
+		
+		return null;
 	}
 	public MemberDto searchMember(int mem_code){
 		return mDao.searchMember(mem_code);
+	}
+	public boolean deleteFriend(int mem_code, int friend_code){
+		return mDao.deleteFriend(mem_code, friend_code);
 	}
 }

@@ -18,6 +18,7 @@ public class FriendSearchAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mem_code = Integer.valueOf(request.getParameter("mem_code"));
 		
+		System.out.println("mem_code : " +mem_code);
 		
 		String jsonString=jsonManager.instanceToJsonString(memberService.searchMember(mem_code));
 		response.setContentType("charset=UTF-8");

@@ -1,6 +1,5 @@
 package com.storymap.common.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.storymap.common.dao.MarkerDao;
@@ -33,6 +32,7 @@ public class StorymapService {
 		boolean result = true;
 		if (smDto != null) {
 			String sm_code = smDao.createNextStorymapByMemCode(mem_code);
+			smDto.setMem_code(mem_code);
 			smDto.setSm_code(sm_code);
 			smDao.insertStorymap(smDto);
 			if (smDto.getMarkerList() != null)
@@ -87,6 +87,9 @@ public class StorymapService {
 			smDto.setRouteList(rtList);
 		}
 		return smDto;
+	}
+	public boolean updateStorymapImage(String sm_img_path,String sm_code){
+		return smDao.updateStorymapImage(sm_img_path, sm_code);
 	}
 
 	public void storymapView(StorymapDto smDto) {

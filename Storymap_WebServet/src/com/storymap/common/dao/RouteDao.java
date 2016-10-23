@@ -81,7 +81,13 @@ public class RouteDao {
 			pstmt=conn.prepareStatement(sql);
 			int rt_seq=1;
 			for(RouteDto rDto : routeList){
+
+				System.out.println("moving_route.size : "+rDto.getMoving_route().size());
 				String moving_route = jsonManager.instanceToJsonString(rDto.getMoving_route());
+
+				System.out.println("moving_route : "+moving_route);
+				System.out.println("moving_route : "+moving_route.length());
+				
 				pstmt.setString(1, sm_code);
 				pstmt.setInt(2, rt_seq);
 				pstmt.setString(3, rDto.getRt_type());

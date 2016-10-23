@@ -29,7 +29,7 @@ public class StorymapDao {
 	 */
 
 	public boolean insertStorymap(StorymapDto smDto) {
-		String sql = "call insert_storymap(?,?,?,?,?,?)";
+		String sql = "call insert_storymap(?,?,?,?,?)";
 
 		boolean result = false;
 		Connection conn = null;
@@ -43,13 +43,35 @@ public class StorymapDao {
 			pstmt.setString(3, smDto.getCity_code());
 			pstmt.setString(4, smDto.getSub_city_code());
 			pstmt.setString(5, smDto.getSm_title());
-			pstmt.setString(6, smDto.getSm_img_path());
-			pstmt.executeUpdate();
+			if(pstmt.executeUpdate()==1)
+				result =true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBManager.close(conn, pstmt);
 		}
+		return result;
+	}
+	public boolean updateStorymapImage(String sm_img_path,String sm_code){
+		String sql="update storymap set sm_img_path = ? where sm_code = ?";
+		boolean result =false;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, sm_img_path);
+			pstmt.setString(2, sm_code);
+			if(pstmt.executeUpdate()==1)
+				result=true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
+		}
+		
 		return result;
 	}
 

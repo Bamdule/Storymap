@@ -8,18 +8,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.storymap.common.action.Action;
+import com.storymap.common.service.StorymapService;
 import com.storymap.util.UploadManager;
 
 public class StorymapImageAddAction implements Action {
+	StorymapService smService=StorymapService.getInstance();
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MultipartRequest mr=UploadManager.getMultiPartRequest(request,"images/storymap_images");
-		String storymap_Path=mr.getFilesystemName("storymap_image");
+		String sm_img_path=mr.getFilesystemName("storymap_image");
+		String sm_code = mr.getParameter("sm_code");
 		String orgin = mr.getOriginalFileName("storymap_image");
+ 
+		smService.updateStorymapImage(sm_img_path, sm_code);
 		
-		System.out.println("storymap_Path : "+storymap_Path);
-		System.out.println("orgin : "+orgin);
 		
 	}
 

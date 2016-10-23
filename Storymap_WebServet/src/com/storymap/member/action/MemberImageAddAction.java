@@ -27,9 +27,7 @@ public class MemberImageAddAction implements Action {
 			System.out.println(file);
 			System.out.println(file_name);
 			System.out.println(org_file_name);
-			System.out.println();
-			System.out.println();
-			System.out.println();
+		
 		}
 		System.out.println("mem_code : "+m.getParameter("mem_code"));
 		

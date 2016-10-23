@@ -24,8 +24,10 @@ public class StorymapAddAction implements Action {
 		try{
 			int mem_code = Integer.parseInt(request.getParameter("mem_code"));
 			
+			System.out.println("mem_code : "+mem_code);
 			//받은 Json을 instance로 변환한다.
 			smDto=(StorymapDto)jsonManager.jsonStringToInstance(storymap_Json,StorymapDto.class);
+			smDto.setMem_code(mem_code);
 			System.out.println(smDto);
 			boolean result=smService.insertStorymap(smDto, mem_code);
 			

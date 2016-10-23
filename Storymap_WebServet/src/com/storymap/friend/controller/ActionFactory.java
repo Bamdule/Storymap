@@ -11,11 +11,9 @@ import com.storymap.friend.action.FriendSearchAction;
 
 public class ActionFactory {
 	private static ActionFactory instance =null;
-	private ActionFactory() {
-	}
+	private ActionFactory() {}
 	
-	public static ActionFactory getInstance()
-	{
+	public static ActionFactory getInstance(){
 		instance = new ActionFactory();
 		return instance;
 	}

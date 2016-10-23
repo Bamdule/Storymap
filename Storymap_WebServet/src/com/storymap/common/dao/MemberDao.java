@@ -342,7 +342,7 @@ public class MemberDao {
 		}
 		
 		//친구삭제
-		public boolean deleteFriendRequest(int mem_code,int friend_code){
+		public boolean deleteFriend(int mem_code,int friend_code){
 			String sql ="delete from friend where mem_code = ? and friend_code = ? and reg_status = 1";
 			boolean result = false;
 			Connection conn = null;
@@ -392,7 +392,30 @@ public class MemberDao {
 					
 			return mDto;
 		}
-		
+/*//		
+//		public boolean deleteFriend(int mem_code, int friend_code){
+//			String sql ="delete from friend where mem_code=? and friend_code= ?";
+//			Connection conn = null;
+//			PreparedStatement pstmt =null;	
+//			boolean result = false;
+//			try {
+//				
+//				conn = DBManager.getConnection();
+//				pstmt = conn.prepareStatement(sql);
+//				pstmt.setInt(1, mem_code);
+//				pstmt.setInt(2, friend_code);
+//				if(pstmt.executeUpdate()==1)
+//					result=true;
+//				
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}finally {
+//				DBManager.close(conn, pstmt);
+//			}
+//			
+//			return result;
+//		}
+*/		
 			
 
 }

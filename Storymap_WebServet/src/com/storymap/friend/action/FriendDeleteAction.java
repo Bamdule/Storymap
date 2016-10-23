@@ -16,8 +16,9 @@ public class FriendDeleteAction implements Action {
 		int mem_code = Integer.parseInt(request.getParameter("mem_code"));
 		int friend_code = Integer.parseInt(request.getParameter("friend_code"));
 
-		//int result =mService.de(mem_code, friend_code);
-		
+		boolean result =mService.deleteFriend(mem_code, friend_code);
+		response.setContentType("charset=UTF-8");
+		response.getWriter().print(String.valueOf(result));
 	}
 
 }
