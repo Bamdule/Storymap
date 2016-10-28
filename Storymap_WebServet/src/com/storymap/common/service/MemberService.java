@@ -1,6 +1,5 @@
 package com.storymap.common.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.storymap.common.dao.MemberDao;
@@ -46,7 +45,11 @@ public class MemberService {
 	}
 	//친구요청리스트
 	public List<FriendDto> selectAllFriendRequest(int mem_code){
-		return mDao.selectAllFriendRequest(mem_code);
+		List<FriendDto> friendList = mDao.selectAllFriendRequest(mem_code);
+		if(friendList.size()>0&& friendList !=null)
+			return friendList ;
+		else
+			return null;
 	}
 	//친구리스트
 	public List<FriendDto> selectAllFriends(int mem_code){
@@ -56,10 +59,22 @@ public class MemberService {
 		
 		return null;
 	}
+	//친구 요청 수
+	public int selectAllFriendRequestCount(int mem_code){
+		return mDao.selectAllFriendRequestCount(mem_code);
+	}
 	public MemberDto searchMember(int mem_code){
 		return mDao.searchMember(mem_code);
 	}
 	public boolean deleteFriend(int mem_code, int friend_code){
 		return mDao.deleteFriend(mem_code, friend_code);
 	}
+	
+	public MemberDto searchMemberByEmail(String mem_email){
+		return mDao.searchMemberByEmail(mem_email);
+	}
+	public boolean updateMemberImage(String mem_img_path,String thumbnail_id,int mem_code){
+		return mDao.updateMemberImage(mem_img_path, thumbnail_id, mem_code);
+	}
+	
 }

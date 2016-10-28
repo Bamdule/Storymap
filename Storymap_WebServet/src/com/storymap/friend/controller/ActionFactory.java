@@ -7,6 +7,7 @@ import com.storymap.friend.action.FriendRequestAcceptAction;
 import com.storymap.friend.action.FriendRequestAction;
 import com.storymap.friend.action.FriendRequestCancelAction;
 import com.storymap.friend.action.FriendRequestListAction;
+import com.storymap.friend.action.FriendRequestListCountAction;
 import com.storymap.friend.action.FriendSearchAction;
 
 public class ActionFactory {
@@ -35,6 +36,9 @@ public class ActionFactory {
 			action = new FriendRequestListAction();
 		else if(command.equals("friend_search"))
 			action = new FriendSearchAction();
+		else if(command.equals("friend_request_list_count"))
+			action = new FriendRequestListCountAction();
+		
 		
 		return action;
 	}

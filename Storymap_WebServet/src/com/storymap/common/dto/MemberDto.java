@@ -7,9 +7,18 @@ public class MemberDto {
 	private String mem_pwd;
 	private String mem_name;
 	private String mem_img_path;
+	private String thumbnail_id;	
 	private String loginFlag;
 
    
+	public String getThumbnail_id() {
+		return thumbnail_id;
+	}
+
+	public void setThumbnail_id(String thumbnail_id) {
+		this.thumbnail_id = thumbnail_id;
+	}
+
 	public String getLoginFlag() {
 		return loginFlag;
 	}
@@ -74,7 +83,8 @@ public class MemberDto {
     @Override
 	public String toString() {
 		return "MemberDto [mem_code=" + mem_code + ", mem_email=" + mem_email + ", mem_pwd=" + mem_pwd + ", mem_name="
-				+ mem_name + ", mem_img_path=" + mem_img_path + ", loginFlag=" + loginFlag + "]";
+				+ mem_name + ", mem_img_path=" + mem_img_path + ", thumbnail_id=" + thumbnail_id + ", loginFlag="
+				+ loginFlag + "]";
 	}
 
 }

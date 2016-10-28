@@ -215,10 +215,35 @@ public class MemberDao {
 			}
 		return friendRequestList;
 	}
+	//자신에게 온 친구요청 리스트 
+	public int selectAllFriendRequestCount(int mem_code){
+		String sql ="SELECT COUNT(*) FROM FRIEND WHERE mem_code=? AND reg_status = 0";
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+			try {
+				conn = DBManager.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, mem_code);
+				
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()){
+					count=rs.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally{
+				DBManager.close(conn, pstmt,rs);
+			}
+		return count;
+	}
 	
 	//친구요청 수락
 	public boolean acceptFriendRequest(int mem_code,int friend_code){
-		String sql ="update friend set reg_status = 1 where mem_code = ? and friend_code = ?";
+		String sql ="update friend set reg_status = 1 where mem_code = ? and friend_code = ? and reg_status = 0";
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -244,13 +269,13 @@ public class MemberDao {
 		int result=4;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		result =friendReuqestDuplicateCheck(mem_code,friend_code);
+		result =friendReuqestDuplicateCheck(friend_code,mem_code);
 		if(result==3){
 			try {
 				conn = DBManager.getConnection();
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, mem_code);
-				pstmt.setInt(2, friend_code);
+				pstmt.setInt(1, friend_code);
+				pstmt.setInt(2, mem_code);
 				
 				if(pstmt.executeUpdate()!=1)
 					result=4;
@@ -341,17 +366,43 @@ public class MemberDao {
 			return result;
 		}
 		
+		/*
+		 * DELETE 
+FROM FRIEND f
+WHERE EXISTS
+(
+	SELECT 1
+    FROM(				
+		SELECT mem_code mem_code, friend_code friend_code from FRIEND  where mem_code = 1610186 AND friend_code = 1610188 AND reg_status=1 
+		UNION 
+    	SELECT mem_code mem_code, friend_code friend_code from FRIEND  where mem_code = 1610188 AND friend_code = 1610186 AND reg_status=1) target
+    WHERE f.MEM_CODE = target.mem_code AND f.FRIEND_CODE=target.friend_code                                                      
+);        
+		 * 
+		 * 
+		 */
 		//친구삭제
 		public boolean deleteFriend(int mem_code,int friend_code){
-			String sql ="delete from friend where mem_code = ? and friend_code = ? and reg_status = 1";
+			StringBuilder sql =new StringBuilder();
+			sql.append("DELETE ");
+			sql.append("FROM FRIEND f ");
+			sql.append("WHERE EXISTS ");
+				 sql.append("( SELECT 1 ");
+				   sql.append("FROM(SELECT mem_code mem_code, friend_code friend_code from FRIEND  where mem_code = ? AND friend_code = ? AND reg_status=1 ");
+			       sql.append("UNION ");
+			       sql.append("SELECT mem_code mem_code, friend_code friend_code from FRIEND  where mem_code = ? AND friend_code = ? AND reg_status=1) target ");
+			     sql.append("WHERE f.MEM_CODE = target.mem_code AND f.FRIEND_CODE=target.friend_code ) ");
 			boolean result = false;
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 				try {
 					conn = DBManager.getConnection();
-					pstmt = conn.prepareStatement(sql);
+					pstmt = conn.prepareStatement(sql.toString());
 					pstmt.setInt(1, mem_code);
 					pstmt.setInt(2, friend_code);
+					pstmt.setInt(3, friend_code);
+					pstmt.setInt(4, mem_code);
+					
 					if(pstmt.executeUpdate()==1)
 						result = true;
 							
@@ -364,6 +415,36 @@ public class MemberDao {
 			return result;
 		}
 		
+		
+		public MemberDto searchMemberByEmail(String mem_email){
+			String sql ="select mem_code,mem_name,mem_img_path from member where mem_email=?";
+			MemberDto mDto = null;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+				try {
+					conn = DBManager.getConnection();
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, mem_email);
+					rs=pstmt.executeQuery();
+					
+					if(rs.next()){
+						mDto=new MemberDto();
+						mDto.setMem_code(rs.getInt("mem_code"));
+						mDto.setMem_name(rs.getString("mem_name"));
+						mDto.setMem_img_path(rs.getString("mem_img_path"));
+						
+					}
+							
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}finally{
+						DBManager.close(conn, pstmt,rs);
+					}
+					
+			return mDto;
+			
+		}
 		public MemberDto searchMember(int mem_code){
 			String sql ="select mem_code,mem_name,mem_img_path from member where mem_code=?";
 			MemberDto mDto = null;
@@ -391,6 +472,30 @@ public class MemberDao {
 					}
 					
 			return mDto;
+		}
+		
+		public boolean updateMemberImage(String mem_img_path,String thumbnail_id,int mem_code){
+			String sql="update member set mem_img_path = ? , thumbnail_id = ? where mem_code = ?";
+			boolean result =false;
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+
+			try {
+				conn = DBManager.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, mem_img_path);
+				pstmt.setString(2, thumbnail_id);
+				pstmt.setInt(3, mem_code);
+				if(pstmt.executeUpdate()==1)
+					result=true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBManager.close(conn, pstmt);
+			}
+			
+			return result;
 		}
 /*//		
 //		public boolean deleteFriend(int mem_code, int friend_code){

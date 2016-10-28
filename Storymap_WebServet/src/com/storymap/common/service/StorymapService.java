@@ -52,17 +52,19 @@ public class StorymapService {
 		List<RouteDto> rtList = null;
 		smList = smDao.selectAllStorymap(mem_code);
 
-		for (StorymapDto smDto : smList) {
-			mkList = mkDao.selectAllMarker(smDto.getSm_code());
-			rtList = rtDao.selectAllRoute(smDto.getSm_code());
-			for (MarkerDto mkDto : mkList) {
-				StoryboardDto sbDto = sbDao.selectStoryboard(smDto.getSm_code(), mkDto.getMk_seq());
-				sbDto.setStoryboard_imgs(sbDao.selectStoryboardImgs(smDto.getSm_code(), mkDto.getMk_seq()));
-				mkDto.setStoryboard(sbDto);
+		if(smList!=null){
+			for (StorymapDto smDto : smList) {
+				mkList = mkDao.selectAllMarker(smDto.getSm_code());
+				rtList = rtDao.selectAllRoute(smDto.getSm_code());
+				for (MarkerDto mkDto : mkList) {
+					StoryboardDto sbDto = sbDao.selectStoryboard(smDto.getSm_code(), mkDto.getMk_seq());
+					sbDto.setStoryboard_imgs(sbDao.selectStoryboardImgs(smDto.getSm_code(), mkDto.getMk_seq()));
+					mkDto.setStoryboard(sbDto);
+				}
+	
+				smDto.setMarkerList(mkList);
+				smDto.setRouteList(rtList);
 			}
-
-			smDto.setMarkerList(mkList);
-			smDto.setRouteList(rtList);
 		}
 		return smList;
 	}

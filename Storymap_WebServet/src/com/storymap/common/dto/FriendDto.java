@@ -6,9 +6,17 @@ public class FriendDto {
 	private int reg_status;
 	private String mem_name;
 	private String mem_img_path;
+	private int seq;
 	
 	
-	
+	public int getSeq() {
+		return seq;
+	}
+
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+
 	public String getMem_name() {
 		return mem_name;
 	}
@@ -45,7 +53,7 @@ public class FriendDto {
 	@Override
 	public String toString() {
 		return "FriendDto [mem_code=" + mem_code + ", friend_code=" + friend_code + ", reg_status=" + reg_status
-				+ ", mem_name=" + mem_name + ", mem_img_path=" + mem_img_path + "]";
+				+ ", mem_name=" + mem_name + ", mem_img_path=" + mem_img_path + ", seq=" + seq + "]";
 	}
 	
 	

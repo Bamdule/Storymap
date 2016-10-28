@@ -115,9 +115,13 @@ public class StorymapDao {
 		} finally {
 			DBManager.close(conn, pstmt, rs);
 		}
+		if(smList.size()>0 && smList!=null)
+			return smList;	
 
-		System.out.println("smDao List "+ smList);
-		return smList;
+		else{ 
+			return null;
+		}
+		
 	}
 
 	public StorymapDto selectStorymap(String sm_code) {

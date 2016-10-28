@@ -23,13 +23,14 @@ public class StorymapListAction implements Action {
 		
 		//mem_code와 맞는 StorymapList를 DB에서 가져온다.
 		List<StorymapDto> storymapList= smService.selectAllStorymap(mem_code);
+		String JsonString=null;
+		if(storymapList!=null)
+			JsonString = jsonManager.instanceToJsonString(storymapList);
 		
-	    String storymapList_Json = jsonManager.instanceToJsonString(storymapList);
-		
-		System.out.println(storymapList_Json);
+		System.out.println(JsonString);
 
 		response.setContentType("charset=UTF-8");
-		response.getWriter().print(storymapList_Json);
+		response.getWriter().print(JsonString);
 
 	}
 

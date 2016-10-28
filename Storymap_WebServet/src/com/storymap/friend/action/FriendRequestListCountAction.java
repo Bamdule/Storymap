@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 import com.storymap.common.action.Action;
 import com.storymap.common.service.MemberService;
 
-public class FriendRequestAcceptAction implements Action {
+public class FriendRequestListCountAction implements Action {
 	MemberService mService =MemberService.getInstance();
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mem_code = Integer.parseInt(request.getParameter("mem_code"));
-		int friend_code = Integer.parseInt(request.getParameter("friend_code"));
-		boolean result =mService.acceptFriendRequest(mem_code, friend_code);
+
+		int result =mService.selectAllFriendRequestCount(mem_code);
 		
-		System.out.println("mem_code: "+mem_code);
-		System.out.println("friend_code: "+friend_code);
-		System.out.println(result);
 		response.setContentType("charset=UTF-8");
 		response.getWriter().print(String.valueOf(result));
+		
+
 	}
 
 }

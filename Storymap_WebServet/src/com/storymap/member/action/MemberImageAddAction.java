@@ -9,29 +9,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.storymap.common.action.Action;
+import com.storymap.common.service.MemberService;
+import com.storymap.util.ThumbnailHelper;
 import com.storymap.util.UploadManager;
 
 public class MemberImageAddAction implements Action {
-
+	
+	private ThumbnailHelper thumbnailHelper= ThumbnailHelper.getInstance();
+	String storyboardSavePath="D:\\dev_jsp\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Storymap_WebServet\\images\\member_images";
+	MemberService mService = MemberService.getInstance();
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MultipartRequest m=UploadManager.getMultiPartRequest(request,"images/member_images");
-		Enumeration files=m.getFileNames();
-		String file_name=null;
+		MultipartRequest mr=UploadManager.getMultiPartRequest(request,"images/member_images");
+		String mem_img_path=mr.getFilesystemName("member_image");
+		int mem_code = Integer.parseInt(mr.getParameter("mem_code"));
+		String file_name = mr.getOriginalFileName("member_image");
+
 		
-		while(files.hasMoreElements()){
-			String file = (String)files.nextElement();
-			file_name= m.getFilesystemName(file);
-			String org_file_name=m.getOriginalFileName(file);
-			
-			System.out.println(file);
-			System.out.println(file_name);
-			System.out.println(org_file_name);
+		String thumbnail_id=thumbnailHelper.createThumbnail(storyboardSavePath,file_name,100,100);
+		mService.updateMemberImage(mem_img_path, thumbnail_id, mem_code);
 		
-		}
-		System.out.println("mem_code : "+m.getParameter("mem_code"));
 		
-		response.getWriter().print(file_name);
+		
 		
 		
 	}
