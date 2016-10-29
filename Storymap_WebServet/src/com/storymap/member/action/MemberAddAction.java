@@ -18,22 +18,18 @@ public class MemberAddAction implements Action {
 		String mem_email = request.getParameter("mem_email");
 		String mem_pwd = request.getParameter("mem_pwd");
 		String mem_name= request.getParameter("mem_name");
-		String mem_img_path= request.getParameter("mem_img_path");
 		MemberDto mDto = new MemberDto();
 	
 		boolean result =false;
 		mDto.setMem_email(mem_email);
 		mDto.setMem_name(mem_name);
 		mDto.setMem_pwd(mem_pwd);
-		mDto.setMem_img_path(mem_img_path);
 
 		System.out.println(mem_email);
 		System.out.println(mem_pwd);
 		System.out.println(mem_name);
-		System.out.println(mem_img_path);
 		
 		if(memberNullCheck(mDto)){
-			
 			if(!mService.emailDuplicateCheck(mem_email))
 				result=mService.insertMember(mDto);
 		}
