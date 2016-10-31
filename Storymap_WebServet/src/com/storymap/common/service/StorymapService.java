@@ -69,12 +69,12 @@ public class StorymapService {
 		return smList;
 	}
 
-	public StorymapDto selectStorymap(String sm_code) {
+	public StorymapDto selectStorymapDetail(String sm_code) {
 		StorymapDto smDto = null;
 		List<MarkerDto> mkList = null;
 		List<RouteDto> rtList = null;
 
-		smDto = smDao.selectStorymap(sm_code);
+		smDto = smDao.selectStorymapDetail(sm_code);
 		if (smDto != null) {
 			mkList = mkDao.selectAllMarker(sm_code);
 			rtList = rtDao.selectAllRoute(sm_code);

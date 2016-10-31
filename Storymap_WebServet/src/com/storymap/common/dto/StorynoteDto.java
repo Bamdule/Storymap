@@ -27,6 +27,15 @@ public class StorynoteDto {
 	private String theme_code;
 	private String theme_name;
 	private List<String> Storymap_codes;
+	private List<StorymapDto> storymapDtos;
+	
+	
+	public List<StorymapDto> getStorymapDtos() {
+		return storymapDtos;
+	}
+	public void setStorymapDtos(List<StorymapDto> storymapDtos) {
+		this.storymapDtos = storymapDtos;
+	}
 	
 	public List<String> getStorymap_codes() {
 		return Storymap_codes;
@@ -105,7 +114,8 @@ public class StorynoteDto {
 		return "StorynoteDto [mem_code=" + mem_code + ", sn_code=" + sn_code + ", sn_seq=" + sn_seq + ", sn_title="
 				+ sn_title + ", sn_content=" + sn_content + ", sn_img_path=" + sn_img_path + ", sn_date=" + sn_date
 				+ ", sn_readcount=" + sn_readcount + ", sn_likecount=" + sn_likecount + ", theme_code=" + theme_code
-				+ ", theme_name=" + theme_name + ", Storymap_codes=" + Storymap_codes + "]";
+				+ ", theme_name=" + theme_name + ", Storymap_codes=" + Storymap_codes + ", storymapDtos=" + storymapDtos
+				+ "]";
 	}
 	
 	

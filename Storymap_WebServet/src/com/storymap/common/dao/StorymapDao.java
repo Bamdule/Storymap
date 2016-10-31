@@ -128,7 +128,7 @@ public class StorymapDao {
 		
 	}
 
-	public StorymapDto selectStorymap(String sm_code) {
+	public StorymapDto selectStorymapDetail(String sm_code) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select  s.sm_code ");
 		sql.append("	  , c.CITY_NAME ");
@@ -136,6 +136,7 @@ public class StorymapDao {
 		sql.append("	  , s.SM_TITLE ");
 		sql.append("	  , s.SM_DATE ");
 		sql.append("	  , s.SM_IMG_PATH ");
+		sql.append("	  , s.thumbnail_id ");
 		sql.append("from STORYMAP s left outer JOIN CITY c  ");
 		sql.append("ON s.CITY_CODE=c.CITY_CODE ");
 		sql.append("left JOIN SUB_CITY sc ");
@@ -159,6 +160,7 @@ public class StorymapDao {
 				smDto.setSm_title(rs.getString("sm_title"));
 				smDto.setSm_date(rs.getString("sm_date"));
 				smDto.setSm_img_path(rs.getString("sm_img_path"));
+				smDto.setThumbnail_id(rs.getString("thumbnail_id"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

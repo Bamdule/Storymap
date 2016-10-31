@@ -28,29 +28,35 @@ public class StorynoteListAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mem_code = Integer.parseInt(request.getParameter("mem_code"));
-		int count = Integer.parseInt(request.getParameter("count"));
-		
 		String list_type=request.getParameter("list_type");
-		
-		
+		List<StorynoteDto> storynoteList=null;
+		String jsonString=null;
+		if(list_type==null)
+			list_type=allCode;
 		switch(list_type){
 		case myCode:
+			storynoteList = snService.selectAllStorynoteByMem(mem_code);
 			break;
 		case friendCode :
+			storynoteList = snService.selectAllStorynoteByMem(mem_code);
 			break;
 		case allCode :
+			storynoteList=snService.selectAllStorynote();
 			break;
 		
 		}
 		
-		/*List<StorynoteDto> storynoteList=snService.selectAllStorynote(mem_code);
-	    String jsonString = jsonManager.instanceToJsonString(storynoteList);
+		System.out.println("storynoteList : " + storynoteList.toString());
+		if(storynoteList!=null){
+			jsonString = jsonManager.instanceToJsonString(storynoteList);
+		}
+	    
 		
 		System.out.println(jsonString);
 
 		response.setContentType("charset=UTF-8");
 		response.getWriter().print(jsonString);
-*/
+
 	}
 
 }

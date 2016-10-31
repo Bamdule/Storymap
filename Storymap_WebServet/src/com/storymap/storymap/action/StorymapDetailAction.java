@@ -21,7 +21,7 @@ public class StorymapDetailAction implements Action  {
 		JsonManager jsonManager = JsonManager.getInstance();
 		StorymapService smService = StorymapService.getInstance();
 		
-		StorymapDto smDto=smService.selectStorymap(sm_code);
+		StorymapDto smDto=smService.selectStorymapDetail(sm_code);
 		String Storymap_jsonString = jsonManager.instanceToJsonString(smDto);
 		
 		System.out.println(Storymap_jsonString);

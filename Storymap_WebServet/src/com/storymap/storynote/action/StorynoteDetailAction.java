@@ -18,8 +18,8 @@ public class StorynoteDetailAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String sn_code = request.getParameter("sn_code");
-		StorynoteDto snDto = snService.selectStorynote(sn_code);
-		String jsonString ="none";
+		StorynoteDto snDto = snService.selectStorynoteDetail(sn_code);
+		String jsonString =null;
 		if(snDto!=null){
 			jsonString=jsonManager.instanceToJsonString(snDto);
 		}
