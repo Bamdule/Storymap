@@ -3,6 +3,7 @@ package com.storymap.storynote.controller;
 import com.storymap.common.action.Action;
 import com.storymap.storynote.action.StorynoteAddAction;
 import com.storymap.storynote.action.StorynoteDetailAction;
+import com.storymap.storynote.action.StorynoteImageAddAction;
 import com.storymap.storynote.action.StorynoteListAction;
 
 public class ActionFactory {
@@ -24,6 +25,9 @@ public class ActionFactory {
 			action = new StorynoteListAction();
 		else if(command.equals("storynote_add"))
 			action = new StorynoteAddAction();
+		else if(command.equals("storynote_image_add"))
+			action = new StorynoteImageAddAction();
+		
 		
 		return action;
 	}

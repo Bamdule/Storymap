@@ -40,6 +40,10 @@ public class MemberDao {
 				mDto.setMem_email(rs.getString("MEM_EMAIL"));
 				mDto.setMem_name(rs.getString("MEM_NAME"));
 				mDto.setMem_img_path(rs.getString("mem_img_path"));
+				mDto.setThumbnail_id(rs.getString("thumbnail_id"));
+				mDto.setBlog_image_id(rs.getString("blog_image_id"));
+				mDto.setLoginFlag("1");
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -52,7 +56,7 @@ public class MemberDao {
 	public boolean insertMember(MemberDto mDto){
 		
 		System.out.println(mDto);
-		String sql = " insert into member values(CREATE_NEXT_MEMBERID,?,?,?,?)";
+		String sql = " insert into member values(CREATE_NEXT_MEMBERID,?,?,?,?,?,?)";
 		boolean result =false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -62,7 +66,9 @@ public class MemberDao {
 			pstmt.setString(1, mDto.getMem_email());
 			pstmt.setString(2, mDto.getMem_pwd());
 			pstmt.setString(3, mDto.getMem_name());
-			pstmt.setString(4, mDto.getMem_img_path());
+			pstmt.setString(4, null);
+			pstmt.setString(5, null);
+			pstmt.setString(6, null);
 			if(pstmt.executeUpdate()==1);
 				result=true;
 		}
@@ -170,6 +176,9 @@ public class MemberDao {
 						fDto.setFriend_code(friend_code);
 						fDto.setMem_name(rs.getString("mem_name"));
 						fDto.setMem_img_path(rs.getString("mem_img_path"));
+						fDto.setThumbnail_id(rs.getString("thumbnail_id"));
+						fDto.setBlog_image_id(rs.getString("blog_image_id"));
+						
 						friendList.add(fDto);
 					}
 				}
@@ -185,7 +194,7 @@ public class MemberDao {
 	
 	//자신에게 온 친구요청 리스트 
 	public List<FriendDto> selectAllFriendRequest(int mem_code){
-		String sql ="select f.friend_code , f.REG_STATUS, m.MEM_NAME, m.MEM_IMG_PATH "  
+		String sql ="select f.friend_code , f.REG_STATUS, m.MEM_NAME, m.MEM_IMG_PATH,m.thumbnail_id,m.blog_image_id "  
 					+"from FRIEND f , MEMBER m " 
 					+"where f.mem_code = ? and reg_status=0  AND f.FRIEND_CODE=m.MEM_CODE ";
 		List<FriendDto> friendRequestList = new ArrayList<FriendDto>();
@@ -205,6 +214,8 @@ public class MemberDao {
 					fDto.setReg_status(rs.getInt(2));
 					fDto.setMem_name(rs.getString(3));
 					fDto.setMem_img_path(rs.getString(4));
+					fDto.setThumbnail_id(rs.getString(5));
+					fDto.setBlog_image_id(rs.getString(6));
 					friendRequestList.add(fDto);
 				}
 				
@@ -417,7 +428,7 @@ WHERE EXISTS
 		
 		
 		public MemberDto searchMemberByEmail(String mem_email){
-			String sql ="select mem_code,mem_name,mem_img_path from member where mem_email=?";
+			String sql ="select mem_code,mem_name,mem_img_path,thumbnail_id ,blog_image_id from member where mem_email=?";
 			MemberDto mDto = null;
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -433,7 +444,8 @@ WHERE EXISTS
 						mDto.setMem_code(rs.getInt("mem_code"));
 						mDto.setMem_name(rs.getString("mem_name"));
 						mDto.setMem_img_path(rs.getString("mem_img_path"));
-						
+						mDto.setThumbnail_id(rs.getString("thumbnail_id"));
+						mDto.setBlog_image_id(rs.getString("blog_image_id"));
 					}
 							
 					} catch (SQLException e) {
@@ -441,12 +453,10 @@ WHERE EXISTS
 					}finally{
 						DBManager.close(conn, pstmt,rs);
 					}
-					
 			return mDto;
-			
 		}
 		public MemberDto searchMember(int mem_code){
-			String sql ="select mem_code,mem_name,mem_img_path from member where mem_code=?";
+			String sql ="select mem_code,mem_name,mem_img_path,thumbnail_id,mem_email,blog_image_id from member where mem_code=?";
 			MemberDto mDto = null;
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -460,9 +470,12 @@ WHERE EXISTS
 					if(rs.next()){
 						mDto=new MemberDto();
 						mDto.setMem_code(mem_code);
+						mDto.setMem_code(rs.getInt("mem_code"));
 						mDto.setMem_name(rs.getString("mem_name"));
 						mDto.setMem_img_path(rs.getString("mem_img_path"));
-						
+						mDto.setMem_email(rs.getString("mem_email"));
+						mDto.setThumbnail_id(rs.getString("thumbnail_id"));
+						mDto.setBlog_image_id(rs.getString("blog_image_id"));
 					}
 							
 					} catch (SQLException e) {
@@ -497,30 +510,29 @@ WHERE EXISTS
 			
 			return result;
 		}
-/*//		
-//		public boolean deleteFriend(int mem_code, int friend_code){
-//			String sql ="delete from friend where mem_code=? and friend_code= ?";
-//			Connection conn = null;
-//			PreparedStatement pstmt =null;	
-//			boolean result = false;
-//			try {
-//				
-//				conn = DBManager.getConnection();
-//				pstmt = conn.prepareStatement(sql);
-//				pstmt.setInt(1, mem_code);
-//				pstmt.setInt(2, friend_code);
-//				if(pstmt.executeUpdate()==1)
-//					result=true;
-//				
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}finally {
-//				DBManager.close(conn, pstmt);
-//			}
-//			
-//			return result;
-//		}
-*/		
+		
+		public boolean updateBlogImageId(String blog_image_id,int mem_code){
+			String sql="update member set blog_image_id = ? where mem_code = ?";
+			boolean result =false;
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+
+			try {
+				conn = DBManager.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, blog_image_id);
+				pstmt.setInt(2, mem_code);
+				if(pstmt.executeUpdate()==1)
+					result=true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBManager.close(conn, pstmt);
+			}
+			
+			return result;
+		}	
 			
 
 }

@@ -52,8 +52,8 @@ public class StorymapDao {
 		}
 		return result;
 	}
-	public boolean updateStorymapImage(String sm_img_path,String sm_code){
-		String sql="update storymap set sm_img_path = ? where sm_code = ?";
+	public boolean updateStorymapImage(String sm_img_path,String thumbnail_id,String sm_code){
+		String sql="update storymap set sm_img_path = ?,thumbnail_id=?  where sm_code = ?";
 		boolean result =false;
 		
 		Connection conn = null;
@@ -63,7 +63,9 @@ public class StorymapDao {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, sm_img_path);
-			pstmt.setString(2, sm_code);
+			pstmt.setString(2, thumbnail_id);
+			pstmt.setString(3, sm_code);
+			
 			if(pstmt.executeUpdate()==1)
 				result=true;
 		} catch (SQLException e) {
@@ -83,6 +85,7 @@ public class StorymapDao {
 		sql.append("	  , s.SM_TITLE ");
 		sql.append("	  , s.SM_DATE ");
 		sql.append("	  , s.SM_IMG_PATH ");
+		sql.append("	  , s.thumbnail_id ");
 		sql.append("from STORYMAP s left outer JOIN CITY c  ");
 		sql.append("ON s.CITY_CODE=c.CITY_CODE ");
 		sql.append("left JOIN SUB_CITY sc ");
@@ -108,6 +111,7 @@ public class StorymapDao {
 				smDto.setSm_title(rs.getString("sm_title"));
 				smDto.setSm_date(rs.getString("sm_date"));
 				smDto.setSm_img_path(rs.getString("sm_img_path"));
+				smDto.setThumbnail_id(rs.getString("thumbnail_id"));
 				smList.add(smDto);
 			}
 		} catch (SQLException e) {

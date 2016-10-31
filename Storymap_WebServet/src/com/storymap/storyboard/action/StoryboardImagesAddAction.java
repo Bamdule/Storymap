@@ -18,7 +18,7 @@ import com.storymap.util.UploadManager;
 
 public class StoryboardImagesAddAction implements Action {
 	private ThumbnailHelper thumbnailHelper= ThumbnailHelper.getInstance();
-	String storyboardSavePath="D:\\dev_jsp\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Storymap_WebServet\\images\\storyboard_images";
+	String storyboardSavePath="C:\\Users\\sun\\Desktop\\dev_jsp\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Storymap_WebServet\\images\\storyboard_images";
 	StoryboardDao sbDao = StoryboardDao.getInstance();
 	
 	@Override

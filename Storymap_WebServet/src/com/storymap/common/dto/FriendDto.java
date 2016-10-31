@@ -6,9 +6,29 @@ public class FriendDto {
 	private int reg_status;
 	private String mem_name;
 	private String mem_img_path;
+	private String thumbnail_id;
+	private String blog_image_id;
 	private int seq;
 	
 	
+	
+	
+	public String getBlog_image_id() {
+		return blog_image_id;
+	}
+
+	public void setBlog_image_id(String blog_image_id) {
+		this.blog_image_id = blog_image_id;
+	}
+
+	public String getThumbnail_id() {
+		return thumbnail_id;
+	}
+
+	public void setThumbnail_id(String thumbnail_id) {
+		this.thumbnail_id = thumbnail_id;
+	}
+
 	public int getSeq() {
 		return seq;
 	}
@@ -53,7 +73,8 @@ public class FriendDto {
 	@Override
 	public String toString() {
 		return "FriendDto [mem_code=" + mem_code + ", friend_code=" + friend_code + ", reg_status=" + reg_status
-				+ ", mem_name=" + mem_name + ", mem_img_path=" + mem_img_path + ", seq=" + seq + "]";
+				+ ", mem_name=" + mem_name + ", mem_img_path=" + mem_img_path + ", thumbnail_id=" + thumbnail_id
+				+ ", blog_image_id=" + blog_image_id + ", seq=" + seq + "]";
 	}
 	
 	

@@ -20,9 +20,12 @@ public class StorynoteImageAddAction implements Action {
 		String sn_img_path=mr.getFilesystemName("storynote_image");
 		String sn_code = mr.getParameter("sn_code");
 		String orgin = mr.getOriginalFileName("storynote_image");
+		
+		System.out.println("storynote_Path : "+sn_img_path);
+		System.out.println("sn_code : "+sn_code);
+		
 		snDao.updateStorynoteImage(sn_img_path, sn_code);
-		System.out.println("storymap_Path : "+sn_img_path);
-		System.out.println("orgin : "+orgin);
+		
 		
 	}
 

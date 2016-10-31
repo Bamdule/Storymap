@@ -25,10 +25,14 @@ public class StorynoteService {
 	public StorynoteDto selectStorynote(String sn_code){
 		return snDao.selectStorynote(sn_code);
 	}
-	public List<StorynoteDto> selectAllStorynote(int mem_code){
+/*	public List<StorynoteDto> selectAllStorynote(int mem_code){
 		return snDao.selectAllStorynote(mem_code);
-	}
+	}*/
 	
+	public boolean insertStorymapOfStorynote(String sn_code, List<String> StorymapCodes){
+		return snDao.insertStorymapOfStorynote(sn_code, StorymapCodes);
+	
+	}
 	public boolean updateStorynoteImage(String sn_img_path,String sn_code){
 		return snDao.updateStorynoteImage(sn_img_path, sn_code);
 	}

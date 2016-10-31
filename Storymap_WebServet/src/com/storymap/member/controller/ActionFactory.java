@@ -2,6 +2,7 @@ package com.storymap.member.controller;
 
 import com.storymap.common.action.Action;
 import com.storymap.member.action.MemberAddAction;
+import com.storymap.member.action.MemberDetailAction;
 import com.storymap.member.action.MemberEmailDuplicateCheckAction;
 import com.storymap.member.action.MemberImageAddAction;
 import com.storymap.member.action.MemberLoginAction;
@@ -28,6 +29,8 @@ public class ActionFactory {
 			action = new MemberEmailDuplicateCheckAction();
 		else if(command.equals("member_login"))
 			action = new MemberLoginAction();
+		else if(command.equals("member_detail"))
+			action = new MemberDetailAction();
 		
 		return action;
 	}

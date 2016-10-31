@@ -90,8 +90,8 @@ public class StorymapService {
 		}
 		return smDto;
 	}
-	public boolean updateStorymapImage(String sm_img_path,String sm_code){
-		return smDao.updateStorymapImage(sm_img_path, sm_code);
+	public boolean updateStorymapImage(String sm_img_path,String thumbnail_id,String sm_code){
+		return smDao.updateStorymapImage(sm_img_path,thumbnail_id, sm_code);
 	}
 
 	public void storymapView(StorymapDto smDto) {

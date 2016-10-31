@@ -1,4 +1,4 @@
-package com.storymap.storynote.controller;
+package com.storymap.blog.controller;
 
 import java.io.IOException;
 
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.storymap.common.action.Action;
 
 
-@WebServlet("/StorynoteServlet")
-public class StorynoteServlet extends HttpServlet {
+@WebServlet("/BlogServlet")
+public class BlogServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,7 +23,7 @@ public class StorynoteServlet extends HttpServlet {
 			if(command==null)
 				command="";
 			
-			System.out.println("StorynoteServlet command : " + command);
+			System.out.println("command : " + command);
 			Action action = null;
 			ActionFactory af = ActionFactory.getInstance();
 			action = af.getAction(command);

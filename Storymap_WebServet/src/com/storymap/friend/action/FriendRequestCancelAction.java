@@ -16,6 +16,9 @@ public class FriendRequestCancelAction implements Action{
 		int mem_code = Integer.parseInt(request.getParameter("mem_code"));
 		int friend_code = Integer.parseInt(request.getParameter("friend_code"));
 
+		System.out.println("mem_code : "+mem_code);
+		System.out.println("friend_code : "+friend_code);
+		
 		boolean result =mService.cancelFriendRequest(mem_code, friend_code);
 
 		response.setContentType("charset=UTF-8");

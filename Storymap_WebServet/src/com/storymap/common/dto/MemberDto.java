@@ -9,8 +9,18 @@ public class MemberDto {
 	private String mem_img_path;
 	private String thumbnail_id;	
 	private String loginFlag;
+	private String blog_image_id;
 
    
+	
+	public String getBlog_image_id() {
+		return blog_image_id;
+	}
+
+	public void setBlog_image_id(String blog_image_id) {
+		this.blog_image_id = blog_image_id;
+	}
+
 	public String getThumbnail_id() {
 		return thumbnail_id;
 	}
@@ -84,7 +94,7 @@ public class MemberDto {
 	public String toString() {
 		return "MemberDto [mem_code=" + mem_code + ", mem_email=" + mem_email + ", mem_pwd=" + mem_pwd + ", mem_name="
 				+ mem_name + ", mem_img_path=" + mem_img_path + ", thumbnail_id=" + thumbnail_id + ", loginFlag="
-				+ loginFlag + "]";
+				+ loginFlag + ", blog_image_id=" + blog_image_id + "]";
 	}
 
 }

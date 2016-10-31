@@ -21,36 +21,36 @@ import com.storymap.util.JsonManager;
 public class StorynoteListAction implements Action {
 	JsonManager jsonManager = JsonManager.getInstance();
 	StorynoteService snService = StorynoteService.getInstance();
-	private final String mySmListCode="my_storynote_list";
-	private final String friendSmListCode="friend_storynote_list";
-	private final String themeSmListCode="theme_storynote_list";
+	private final String myCode="my";
+	private final String friendCode="friend";
+	private final String allCode="all";
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mem_code = Integer.parseInt(request.getParameter("mem_code"));
+		int count = Integer.parseInt(request.getParameter("count"));
+		
 		String list_type=request.getParameter("list_type");
 		
 		
 		switch(list_type){
-		case mySmListCode:
+		case myCode:
 			break;
-		case friendSmListCode :
+		case friendCode :
 			break;
-		case themeSmListCode :
-			String theme_type = request.getParameter("theme_type");
-			String searchword = request.getParameter("searchword");
+		case allCode :
 			break;
 		
 		}
 		
-		List<StorynoteDto> storynoteList=snService.selectAllStorynote(mem_code);
+		/*List<StorynoteDto> storynoteList=snService.selectAllStorynote(mem_code);
 	    String jsonString = jsonManager.instanceToJsonString(storynoteList);
 		
 		System.out.println(jsonString);
 
 		response.setContentType("charset=UTF-8");
 		response.getWriter().print(jsonString);
-
+*/
 	}
 
 }

@@ -16,11 +16,12 @@ public class FriendSearchAction implements Action {
 	JsonManager jsonManager =JsonManager.getInstance();
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int mem_code = Integer.valueOf(request.getParameter("mem_code"));
+		String mem_email = request.getParameter("mem_email");
 		
-		System.out.println("mem_code : " +mem_code);
+		System.out.println("mem_email : " +mem_email);
 		
-		String jsonString=jsonManager.instanceToJsonString(memberService.searchMember(mem_code));
+		String jsonString=jsonManager.instanceToJsonString(memberService.searchMemberByEmail(mem_email));
+		System.out.println("jsonString : "+ jsonString);
 		response.setContentType("charset=UTF-8");
 		response.getWriter().print(jsonString);
 	}

@@ -54,6 +54,33 @@ public class StorynoteDao {
 		}
 		return result;
 	}
+
+	public boolean insertStorymapOfStorynote(String sn_code, List<String> StorymapCodes){
+		boolean result=false;
+		String sql="insert into STORYMAPS_OF_STORYNOTE values(?,?)";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		try {
+			conn = DBManager.getConnection();
+			pstmt= conn.prepareStatement(sql);
+			if(StorymapCodes!=null){
+				for(String sm_code : StorymapCodes){
+					pstmt.setString(1, sn_code);
+					pstmt.setString(2, sm_code);
+					if(pstmt.executeUpdate()==1)
+						result=true;
+					
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt);
+		}
+		return result;
+	}
+	
 	
 	public String createNextStorynoteCode(int mem_code){
 		String sn_code=null;
@@ -100,7 +127,7 @@ public class StorynoteDao {
 		
 		return storymapCodes;		
 	}
-	public List<StorynoteDto> selectAllStorynote(int mem_code){
+	public List<StorynoteDto> selectAllStorynote(int mem_code,int count){
 		String sql="select * from storynote where mem_code = ?";
 		
 		List<StorynoteDto> storynoteList =null;
@@ -136,6 +163,82 @@ public class StorynoteDao {
 		}
 		return storynoteList;
 	}
+	
+	public List<StorynoteDto> selectMyStorynote(int mem_code,int count){
+		String sql="select * from storynote where mem_code = ?";
+		
+		List<StorynoteDto> storynoteList =null;
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		try {
+			conn = DBManager.getConnection();
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, mem_code);
+			rs=pstmt.executeQuery();
+			storynoteList= new ArrayList<StorynoteDto>();
+			//EXEC insert_storynote(1609262,create_next_storynoteid(1609262),'스토리노트 제목','스토리노트 내용','이미지','theme_002');
+			while(rs.next()){
+				StorynoteDto snDto = new StorynoteDto();
+				snDto.setMem_code(rs.getInt("mem_code"));
+				snDto.setSn_code(rs.getString("sn_code"));
+				snDto.setSn_title(rs.getString("sn_title"));
+				snDto.setSn_content(rs.getString("sn_content"));
+				snDto.setSn_img_path(rs.getString("sn_img_path"));
+				snDto.setTheme_code(rs.getString("theme_code"));
+				snDto.setSn_readcount(rs.getInt("sn_readcount"));
+				snDto.setSn_likecount(rs.getInt("sn_likecount"));
+				storynoteList.add(snDto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt,rs);
+		}
+		for(StorynoteDto snDto : storynoteList){
+			snDto.setStorymap_codes(selectStorymapsOfStorynote(snDto.getSn_code()));
+		}
+		return storynoteList;
+	}
+	
+	public List<StorynoteDto> selectFriendStorynote(int mem_code,int count){
+		String sql="select * from storynote where mem_code = ?";
+		
+		List<StorynoteDto> storynoteList =null;
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		try {
+			conn = DBManager.getConnection();
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, mem_code);
+			rs=pstmt.executeQuery();
+			storynoteList= new ArrayList<StorynoteDto>();
+			//EXEC insert_storynote(1609262,create_next_storynoteid(1609262),'스토리노트 제목','스토리노트 내용','이미지','theme_002');
+			while(rs.next()){
+				StorynoteDto snDto = new StorynoteDto();
+				snDto.setMem_code(rs.getInt("mem_code"));
+				snDto.setSn_code(rs.getString("sn_code"));
+				snDto.setSn_title(rs.getString("sn_title"));
+				snDto.setSn_content(rs.getString("sn_content"));
+				snDto.setSn_img_path(rs.getString("sn_img_path"));
+				snDto.setTheme_code(rs.getString("theme_code"));
+				snDto.setSn_readcount(rs.getInt("sn_readcount"));
+				snDto.setSn_likecount(rs.getInt("sn_likecount"));
+				storynoteList.add(snDto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt,rs);
+		}
+		for(StorynoteDto snDto : storynoteList){
+			snDto.setStorymap_codes(selectStorymapsOfStorynote(snDto.getSn_code()));
+		}
+		return storynoteList;
+	}
+	
+	
 	
 	public StorynoteDto selectStorynote(String sn_code){
 		String sql="select * from storynote where sn_code = ?";

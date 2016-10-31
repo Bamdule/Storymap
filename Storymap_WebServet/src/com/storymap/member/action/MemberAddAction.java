@@ -19,7 +19,9 @@ public class MemberAddAction implements Action {
 		String mem_pwd = request.getParameter("mem_pwd");
 		String mem_name= request.getParameter("mem_name");
 		MemberDto mDto = new MemberDto();
-	
+
+		int mem_code=0;
+		
 		boolean result =false;
 		mDto.setMem_email(mem_email);
 		mDto.setMem_name(mem_name);
@@ -32,10 +34,20 @@ public class MemberAddAction implements Action {
 		if(memberNullCheck(mDto)){
 			if(!mService.emailDuplicateCheck(mem_email))
 				result=mService.insertMember(mDto);
+			if(result){
+				if(mDto!=null){
+					System.out.println("start mDto  : "+ mDto);
+					MemberDto temp=mService.selectMember(mDto.getMem_email(), mDto.getMem_pwd());
+					mem_code=temp.getMem_code();
+					System.out.println("Result mDto  : "+ temp);
+				}
+				
+			}
+			
 		}
 
 		response.setContentType("charset=UTF-8");
-		response.getWriter().print(String.valueOf(result));
+		response.getWriter().print(String.valueOf(mem_code));
 	}
 	
 	

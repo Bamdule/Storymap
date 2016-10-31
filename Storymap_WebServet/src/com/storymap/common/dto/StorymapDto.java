@@ -15,12 +15,21 @@ public class StorymapDto {
 	private String sm_title;
 	private String sm_date;
 	private String sm_img_path;
+	private String thumbnail_id;
+	
+	
 
 	private List<MarkerDto> markerList;
 	private List<RouteDto> routeList;
 	
 	
 	
+	public String getThumbnail_id() {
+		return thumbnail_id;
+	}
+	public void setThumbnail_id(String thumbnail_id) {
+		this.thumbnail_id = thumbnail_id;
+	}
 	public String getSm_code() {
 		return sm_code;
 	}

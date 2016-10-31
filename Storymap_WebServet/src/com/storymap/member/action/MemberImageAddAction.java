@@ -16,7 +16,7 @@ import com.storymap.util.UploadManager;
 public class MemberImageAddAction implements Action {
 	
 	private ThumbnailHelper thumbnailHelper= ThumbnailHelper.getInstance();
-	String storyboardSavePath="D:\\dev_jsp\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Storymap_WebServet\\images\\member_images";
+	String storyboardSavePath="C:\\Users\\sun\\Desktop\\dev_jsp\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Storymap_WebServet\\images\\member_images";
 	MemberService mService = MemberService.getInstance();
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,7 +26,7 @@ public class MemberImageAddAction implements Action {
 		String file_name = mr.getOriginalFileName("member_image");
 
 		
-		String thumbnail_id=thumbnailHelper.createThumbnail(storyboardSavePath,file_name,100,100);
+		String thumbnail_id=thumbnailHelper.createThumbnail(storyboardSavePath,mem_img_path,100,100);
 		mService.updateMemberImage(mem_img_path, thumbnail_id, mem_code);
 		
 		

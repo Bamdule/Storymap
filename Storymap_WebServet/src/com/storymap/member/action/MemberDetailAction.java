@@ -7,22 +7,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.storymap.common.action.Action;
+import com.storymap.common.dto.MemberDto;
 import com.storymap.common.service.MemberService;
+import com.storymap.util.JsonManager;
 
-public class MemberEmailDuplicateCheckAction implements Action {
-
+public class MemberDetailAction implements Action {
 	MemberService mService = MemberService.getInstance();
+	JsonManager jsonManager=JsonManager.getInstance();
+
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int mem_code= Integer.parseInt(request.getParameter("mem_code"));
+		MemberDto mDto=null;
 		
-		String mem_email=request.getParameter("mem_email");
+		mDto=mService.searchMemberDetail(mem_code);
 		
-		boolean result = mService.emailDuplicateCheck(mem_email);
-
-		System.out.println("mem_email : " + mem_email);
-		System.out.println("result : " + result);
+		System.out.println(mDto);
 		response.setContentType("charset=UTF-8");
-		response.getWriter().print(String.valueOf(result));
+		response.getWriter().print(jsonManager.instanceToJsonString(mDto));
 	}
 
 }

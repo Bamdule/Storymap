@@ -59,6 +59,9 @@ public class MemberService {
 		
 		return null;
 	}
+	public MemberDto searchMemberDetail(int mem_code){
+		return mDao.searchMember(mem_code);
+	}
 	//친구 요청 수
 	public int selectAllFriendRequestCount(int mem_code){
 		return mDao.selectAllFriendRequestCount(mem_code);
@@ -75,6 +78,9 @@ public class MemberService {
 	}
 	public boolean updateMemberImage(String mem_img_path,String thumbnail_id,int mem_code){
 		return mDao.updateMemberImage(mem_img_path, thumbnail_id, mem_code);
+	}
+	public boolean updateBlogImageId(String blog_image_id,int mem_code){
+		return mDao.updateBlogImageId(blog_image_id, mem_code);
 	}
 	
 }

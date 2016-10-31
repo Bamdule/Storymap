@@ -23,6 +23,7 @@ public class FriendListAction implements Action {
 		List<FriendDto> friendList =mService.selectAllFriends(mem_code);
 		String jsonString=jsonManager.instanceToJsonString(friendList);
 
+		System.out.println(jsonString);
 		response.setContentType("charset=UTF-8");
 		response.getWriter().print(jsonString);
 	}
